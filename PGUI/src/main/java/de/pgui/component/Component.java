@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.pgui.components;
+package de.pgui.component;
 
 /**
  * @author Noah Ruben
