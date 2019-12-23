@@ -40,7 +40,7 @@ Background Task?
 * AnimationTimer
 * ViewTransition == Speichter View wechsel
 * Controller ?
-
+* Colors 
 
 # Interface
 * Action 
