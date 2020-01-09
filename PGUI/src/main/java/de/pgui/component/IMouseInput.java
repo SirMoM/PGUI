@@ -12,12 +12,11 @@ import processing.core.PApplet;
  *
  * @created 23.12.2019
  */
-public abstract class MouseInputComponent extends Component {
-
-	public MouseInputComponent(PApplet pa) {
-		super(pa);
-	}
+public interface IMouseInput{
 	
-	abstract void onMouseInput(MouseInputEvent mouseInputEvent);
+	/** TODO DOC missing
+	 * @param mouseInputEvent {@link MouseInputComponent}
+	 */
+	public void handleMouseInputEvent(MouseInputEvent mouseInputEvent);
 
 }
