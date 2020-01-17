@@ -29,9 +29,7 @@ public class Button extends ButtonBase{
 
 	@Override
 	public void handleMouseInputEvent(MouseInputEvent mouseInputEvent) {
-		System.out.println("ASD");
 		if (isOverRect(mouseInputEvent.getMouseEvent().getX(), mouseInputEvent.getMouseEvent().getY())) {
-			System.out.println("ETSTSTTS");
 		}
 	}
 
