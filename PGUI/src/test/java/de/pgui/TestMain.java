@@ -3,12 +3,9 @@
  */
 package de.pgui;
 
-import java.util.List;
-
 import de.pgui.component.control.Button;
 import de.pgui.event.MouseInputEvent;
 import processing.core.PApplet;
-import processing.event.Event;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
@@ -30,21 +27,12 @@ public class TestMain extends PApplet {
 		PApplet.main(appletArgs);
 	}
 
-	/**
-	 * @param manager {@link PGuiManager} for this App.
-	 */
-	public TestMain(PGuiManager manager) {
-		super();
-		this.manager = manager;
-	}
-
 	public TestMain() {
 		super();
 		this.manager = new PGuiManager();
 		View view = new View("TEST");
 		view.addComponent(new Button(this, 100, 100, 100, 20, "TEST"));
 		this.manager.registerView(view);
-		System.out.println("as");
 		
 	}
 
@@ -56,29 +44,25 @@ public class TestMain extends PApplet {
 		manager.adjustSettings(this);
 	}
 
-	/**
-	 * Settings für Processing nachdem Processing initialisiert wurde. Hier kann auf
-	 * Processing zugegriffen werden.
-	 */
-	public void setup() {
-		super.setup();
-		this.frameRate(1);
-		manager.adjustSetup();
-	}
+//	/**
+//	 * Settings für Processing nachdem Processing initialisiert wurde. Hier kann auf
+//	 * Processing zugegriffen werden.
+//	 */
+//	public void setup() {
+//		super.setup();
+//		manager.adjustSetup();
+//	}
 
 	public void draw() {
-		super.draw();
 		manager.draw();
-		this.rect(200, 200, 100, 200);
-		System.out.println("as");
 	}
 	
-	public void mousePressed() {
-		System.out.println("SAD");
+	public void mousePressed(MouseEvent mouseEvent) {
+		//TODO Das
 	}
 
-	public void mouseClicked() {
-		System.out.println("ASD");
+	public void mouseClicked(MouseEvent mouseEvent) {
+		manager.mouseClicked(new MouseInputEvent(mouseEvent));
 	}
 
 	public void keyPressed(KeyEvent keyEvent) {
