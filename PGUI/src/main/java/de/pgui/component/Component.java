@@ -74,7 +74,13 @@ public abstract class Component {
 		int color = (int) Long.parseLong(colorStr, 16);
 		return this.pa.color(this.pa.red(color), this.pa.green(color), this.pa.blue(color));
 	}
-
+	
+	
+	/**
+	 * Code that needs to be run before every draw of this Component.
+	 */
+	public abstract void beforeDraw();
+	
 	/**
 	 * Draws the component onto the Sketch
 	 */

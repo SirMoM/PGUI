@@ -43,6 +43,7 @@ public class View {
 	public void draw() {
 		for (Component component : components) {
 			if (component.isVisible()) {
+				component.beforeDraw();
 				component.draw();
 			}
 		}

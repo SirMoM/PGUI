@@ -4,7 +4,10 @@
 package de.pgui.component;
 
 import de.pgui.event.MouseInputEvent;
+import de.pgui.util.BasicColors;
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PFont;
 
 /**
  * @author Noah Ruben
@@ -14,6 +17,12 @@ import processing.core.PApplet;
  */
 public abstract class Labeled extends Component {
 
+	private int textSize = 20;
+	private int textColor = BasicColors.BLACK;
+	private String text = "text";
+	private PFont font;
+	
+	
 	/** TODO DOC missing
 	 * 
 	 * @param pa   {@link Component#pa}
@@ -34,6 +43,11 @@ public abstract class Labeled extends Component {
 	 */
 	public Labeled(PApplet pa, int xPos, int yPos, float width, float height) {
 		super(pa, xPos, yPos, width, height);
+	}
+	
+	@Override
+	public void draw() {
+		getPa().text(this.text, getxPos(), getyPos());
 	}
 
 }

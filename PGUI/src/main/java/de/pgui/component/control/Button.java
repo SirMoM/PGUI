@@ -36,13 +36,19 @@ public class Button extends ButtonBase{
 			if (buttonAction != null) {
 				buttonAction.fireAction();
 			}else {
+				// TODO A real logging system
 				System.out.println("No action for that button.");
 			}
 		}
 	}
 
 	@Override
+	public void beforeDraw() {
+	}
+
+	@Override
 	public void draw() {
+		super.draw();
 		if (isOverRect(getPa().mouseX, getPa().mouseY)) {
 			getPa().fill(toProcessingColor(0x035e7b));
 		}else {
@@ -52,5 +58,6 @@ public class Button extends ButtonBase{
 		getPa().stroke(toProcessingColor(0x0));
 		getPa().rect(getxPos(), getyPos(), getWidth(), getHeight(), 7);
 	}
+
 
 }
