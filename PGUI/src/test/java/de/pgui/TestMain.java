@@ -3,8 +3,14 @@
  */
 package de.pgui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import de.pgui.component.control.Button;
 import de.pgui.event.MouseInputEvent;
+import de.pgui.util.BasicColors;
+import de.pgui.util.Theme;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -25,15 +31,24 @@ public class TestMain extends PApplet {
 	public static void main(String[] args) {
 		String[] appletArgs = new String[] { TestMain.class.getName() };
 		PApplet.main(appletArgs);
+
+//			File file = new File("theme.pgui");
+//			file.createNewFile();
+//			Theme theme = new Theme(BasicColors.WHITE, BasicColors.HILI_COLOR_L, BasicColors.BLACK, BasicColors.HILI_COLOR_D, BasicColors.BLACK, BasicColors.WHITE);
+//			theme.saveTheme(file);
 	}
 
 	public TestMain() {
 		super();
+
 		this.manager = new PGuiManager();
+		
 		View view = new View("TEST");
 		view.addComponent(new Button(this, 100, 100, 100, 20, "TEST"));
 		this.manager.registerView(view);
-		
+
+		File file = new File("theme.pgui");
+		this.manager.applyTheme(Theme.loadTheme(file));
 	}
 
 	/**
@@ -44,21 +59,21 @@ public class TestMain extends PApplet {
 		manager.adjustSettings(this);
 	}
 
-//	/**
-//	 * Settings für Processing nachdem Processing initialisiert wurde. Hier kann auf
-//	 * Processing zugegriffen werden.
-//	 */
-//	public void setup() {
-//		super.setup();
-//		manager.adjustSetup();
-//	}
+	/**
+	 * Settings für Processing nachdem Processing initialisiert wurde. Hier kann auf
+	 * Processing zugegriffen werden.
+	 */
+	public void setup() {
+		super.setup();
+		manager.adjustSetup();
+	}
 
 	public void draw() {
 		manager.draw();
 	}
-	
+
 	public void mousePressed(MouseEvent mouseEvent) {
-		//TODO Das
+		// TODO implemnt
 	}
 
 	public void mouseClicked(MouseEvent mouseEvent) {

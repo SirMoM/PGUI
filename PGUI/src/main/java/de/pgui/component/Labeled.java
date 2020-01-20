@@ -47,6 +47,7 @@ public abstract class Labeled extends Component {
 	
 	@Override
 	public void draw() {
+		getPa().textAlign(PConstants.CENTER, PConstants.CENTER);
 		getPa().text(this.text, getxPos(), getyPos());
 	}
 

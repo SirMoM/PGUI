@@ -4,6 +4,7 @@
 package de.pgui.component;
 
 import de.pgui.event.MouseInputEvent;
+import de.pgui.util.Theme;
 import processing.core.PApplet;
 
 /**
@@ -13,7 +14,18 @@ import processing.core.PApplet;
  * @created 19.12.2019
  */
 public abstract class Component {
-
+	/* TODO add Fields for the colors
+	 * !THESE FIELD-VALUES ARE Processing colors!
+	 * 
+	 * backgroundColor=16777215   
+	 * outlineColor=0 
+	 * textHighlightColor=16777215 
+	 * textColor=0 
+	 * outlineHighlightColor=220795 
+	 * backgroundHighlightColor=10545327 
+	 *  
+	 */
+	
 	/** The visibility of the Component */
 	private boolean visible = true;
 
@@ -42,6 +54,8 @@ public abstract class Component {
 		this.xPos = xPos;
 		this.yPos = yPos;
 	}
+	
+	
 
 	/**
 	 * @param pa {@link ProcessingGui#pa}
@@ -164,4 +178,11 @@ public abstract class Component {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
+
+	/**
+	 * This sets all color values Bases on the Theme
+	 * 
+	 * @param theme The theme for the Component.
+	 */
+	public abstract void applyTheme(Theme theme);
 }

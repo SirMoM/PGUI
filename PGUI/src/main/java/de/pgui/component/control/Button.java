@@ -7,6 +7,7 @@ import de.pgui.action.IAction;
 import de.pgui.component.ButtonBase;
 import de.pgui.component.Component;
 import de.pgui.event.MouseInputEvent;
+import de.pgui.util.Theme;
 import processing.core.PApplet;
 
 /**
@@ -57,6 +58,11 @@ public class Button extends ButtonBase{
 		}
 		getPa().stroke(toProcessingColor(0x0));
 		getPa().rect(getxPos(), getyPos(), getWidth(), getHeight(), 7);
+	}
+
+	@Override
+	public void applyTheme(Theme theme) {
+		// TODO set Values relevant for the button 
 	}
 
 

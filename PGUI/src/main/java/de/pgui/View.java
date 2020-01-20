@@ -70,5 +70,11 @@ public class View {
 		components.add(component);
 	}
 
+	
+	/** TODO DOC missing */
+	public List<Component> getComponents() {
+		return components;
+	}
+	
 
 }

@@ -8,7 +8,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import de.pgui.component.Component;
 import de.pgui.event.MouseInputEvent;
+import de.pgui.util.Theme;
 import processing.core.PApplet;
 
 /**
@@ -27,7 +29,9 @@ public class PGuiManager {
 	public Set<String> viewNames;
 	private List<View> views;
 	private View currentView;
-
+	private Theme currentTheme;
+	
+	
 	/**
 	 * @param viewNames
 	 * @param views
@@ -81,6 +85,22 @@ public class PGuiManager {
 
 	public void adjustSetup() {
 
+	}
+
+	/** TODO DOC missing */
+	public void applyTheme(Theme theme) {
+		this.currentTheme = theme;
+		this.applyTheme();
+		
+	}
+
+	/** TODO DOC missing */
+	private void applyTheme() {
+		for (View view : views) {
+			for (Component component: view.getComponents()) {
+				component.applyTheme(currentTheme);
+			}
+		}
 	}
 
 }
