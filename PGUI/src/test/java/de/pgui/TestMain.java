@@ -4,12 +4,9 @@
 package de.pgui;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import de.pgui.component.control.Button;
 import de.pgui.event.MouseInputEvent;
-import de.pgui.util.BasicColors;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
@@ -42,7 +39,7 @@ public class TestMain extends PApplet {
 		super();
 
 		this.manager = new PGuiManager();
-		
+
 		View view = new View("TEST");
 		view.addComponent(new Button(this, 100, 100, 100, 20, "TEST"));
 		this.manager.registerView(view);
@@ -52,7 +49,7 @@ public class TestMain extends PApplet {
 	}
 
 	/**
-	 * Settings für Processing bevor Processing initialisiert wurde.
+	 * Settings fï¿½r Processing bevor Processing initialisiert wurde.
 	 */
 	public void settings() {
 		super.settings();
@@ -60,7 +57,7 @@ public class TestMain extends PApplet {
 	}
 
 	/**
-	 * Settings für Processing nachdem Processing initialisiert wurde. Hier kann auf
+	 * Settings fï¿½r Processing nachdem Processing initialisiert wurde. Hier kann auf
 	 * Processing zugegriffen werden.
 	 */
 	public void setup() {
