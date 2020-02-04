@@ -4,7 +4,6 @@
 package de.pgui.component.control;
 
 import de.pgui.action.IAction;
-import de.pgui.component.ButtonBase;
 import de.pgui.component.Component;
 import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Theme;
@@ -49,7 +48,6 @@ public class Button extends ButtonBase{
 
 	@Override
 	public void draw() {
-		super.draw();
 		if (isOverRect(getPa().mouseX, getPa().mouseY)) {
 			getPa().fill(toProcessingColor(0x035e7b));
 		}else {
@@ -58,11 +56,14 @@ public class Button extends ButtonBase{
 		}
 		getPa().stroke(toProcessingColor(0x0));
 		getPa().rect(getxPos(), getyPos(), getWidth(), getHeight(), 7);
+		super.draw();
+		
 	}
 
 	@Override
 	public void applyTheme(Theme theme) {
-		// TODO set Values relevant for the button 
+		// TODO set Values relevant for the button
+		
 	}
 
 

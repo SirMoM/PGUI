@@ -12,6 +12,7 @@ import de.pgui.event.MouseInputEvent;
 import de.pgui.util.BasicColors;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
@@ -31,11 +32,6 @@ public class TestMain extends PApplet {
 	public static void main(String[] args) {
 		String[] appletArgs = new String[] { TestMain.class.getName() };
 		PApplet.main(appletArgs);
-
-//			File file = new File("theme.pgui");
-//			file.createNewFile();
-//			Theme theme = new Theme(BasicColors.WHITE, BasicColors.HILI_COLOR_L, BasicColors.BLACK, BasicColors.HILI_COLOR_D, BasicColors.BLACK, BasicColors.WHITE);
-//			theme.saveTheme(file);
 	}
 
 	public TestMain() {
@@ -49,6 +45,7 @@ public class TestMain extends PApplet {
 
 		File file = new File("theme.pgui");
 		this.manager.applyTheme(Theme.loadTheme(file));
+		
 	}
 
 	/**

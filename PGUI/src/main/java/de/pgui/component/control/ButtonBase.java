@@ -1,9 +1,11 @@
 /**
  * 
  */
-package de.pgui.component;
+package de.pgui.component.control;
 
 import processing.core.PApplet;
+import de.pgui.component.Component;
+import de.pgui.component.IMouseInput;
 import de.pgui.component.Labeled;
 
 /**

@@ -12,6 +12,7 @@ import de.pgui.component.Component;
 import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 /**
  * @author Noah Ruben
@@ -49,6 +50,7 @@ public class PGuiManager {
 
 	public void adjustSettings(PApplet pa) {
 		pa.size(windowWidth_D, windowHeight_D);
+		pa.rectMode(PConstants.RADIUS);
 	}
 
 	public void draw() {
@@ -84,7 +86,6 @@ public class PGuiManager {
 	}
 
 	public void adjustSetup() {
-
 	}
 
 	/** TODO DOC missing */

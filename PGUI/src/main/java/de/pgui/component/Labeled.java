@@ -3,7 +3,6 @@
  */
 package de.pgui.component;
 
-import de.pgui.event.MouseInputEvent;
 import de.pgui.util.BasicColors;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -17,7 +16,8 @@ import processing.core.PFont;
  */
 public abstract class Labeled extends Component {
 
-	private int textSize = 20;
+	private float textSize = 20;
+//	private int textColor = BasicColors.WHITE;
 	private int textColor = BasicColors.BLACK;
 	private String text = "text";
 	private PFont font;
@@ -47,8 +47,16 @@ public abstract class Labeled extends Component {
 	
 	@Override
 	public void draw() {
-		getPa().textAlign(PConstants.CENTER, PConstants.CENTER);
-		getPa().text(this.text, getxPos(), getyPos());
+		setupDraw();
+//		getPa().textAlign(PConstants.CENTER, PConstants.CENTER);
+		getPa().text(this.text, getxPos() + 5, getyPos() + 5);
+		System.out.print(getxPos());
+		System.out.println(", " +getyPos());
+	}
+	
+	protected void setupDraw() {
+		getPa().textSize(textSize);
+		getPa().fill(textColor);
 	}
 
 }
