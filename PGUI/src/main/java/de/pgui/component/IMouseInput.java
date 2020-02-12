@@ -4,7 +4,6 @@
 package de.pgui.component;
 
 import de.pgui.event.MouseInputEvent;
-import processing.core.PApplet;
 
 /**
  * @author Noah Ruben
@@ -14,9 +13,11 @@ import processing.core.PApplet;
  */
 public interface IMouseInput{
 	
-	/** TODO DOC missing
+	/**
+	 * TODO DOC missing
+	 *
 	 * @param mouseInputEvent {@link MouseInputComponent}
 	 */
-	public void handleMouseInputEvent(MouseInputEvent mouseInputEvent);
+	void handleMouseInputEvent(MouseInputEvent mouseInputEvent);
 
 }

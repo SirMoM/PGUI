@@ -3,8 +3,9 @@
  */
 package de.pgui.event;
 
-import java.time.LocalTime;
 import processing.event.MouseEvent;
+
+import java.time.LocalTime;
 
 /**
  * @author Noah Ruben
@@ -38,7 +39,7 @@ public class MouseInputEvent {
 	}
 	
 	public void consume() {
-		// TODO consums Event pos finalize ? what happens if it is in a list ?? Nullpointer ?
+		// TODO consumes Event pos finalize ? what happens if it is in a list ?? NullPointer ?
 	}
 	
 }

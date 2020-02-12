@@ -1,13 +1,12 @@
-/**
- * 
- */
 package de.pgui.component.control;
 
-import de.pgui.component.ButtonBase;
 import de.pgui.component.Component;
 import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
+import processing.core.PFont;
+
+import java.util.Arrays;
 
 /**
  * @author Noah Ruben
@@ -25,7 +24,7 @@ public class Button extends ButtonBase {
 	 * @param height Height of the Button
 	 */
 	public Button(PApplet pa, int xPos, int yPos, float width, float height, String labelText) {
-		super(pa, xPos, yPos, width, height);
+		super(pa, xPos, yPos, width, height, labelText);
 	}
 
 	@Override
@@ -36,6 +35,7 @@ public class Button extends ButtonBase {
 			} else {
 				// TODO A real logging system
 				System.out.println("No action for that button.");
+				System.out.println(Arrays.toString(PFont.list()));
 			}
 		}
 	}
@@ -47,18 +47,23 @@ public class Button extends ButtonBase {
 	@Override
 	public void draw() {
 		if (isOverRect(getPa().mouseX, getPa().mouseY)) {
-			getPa().fill(toProcessingColor(0x035e7b));
+			getPa().fill(toProcessingColor(backgroundHighlightColor));
+			getPa().stroke(toProcessingColor(outlineHighlightColor));
 		} else {
-			getPa().fill(toProcessingColor(0x002e2c));
+			getPa().fill(toProcessingColor(backgroundColor));
+			getPa().stroke(toProcessingColor(outlineColor));
 		}
-		getPa().stroke(toProcessingColor(0x0));
 		getPa().rect(getxPos(), getyPos(), getWidth(), getHeight(), 7);
 		super.draw();
 	}
 
+
 	@Override
 	public void applyTheme(Theme theme) {
-		// TODO set Values relevant for the button
+		super.applyTheme(theme);
+		backgroundColor = theme.getBackgroundColor();
+		outlineColor = theme.getOutlineColor();
+		outlineHighlightColor = theme.getOutlineHighlightColor();
+		backgroundHighlightColor = theme.getBackgroundHighlightColor();
 	}
-
 }

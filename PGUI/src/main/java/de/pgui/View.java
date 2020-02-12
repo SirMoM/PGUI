@@ -3,13 +3,12 @@
  */
 package de.pgui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.pgui.component.Component;
 import de.pgui.component.IMouseInput;
-import de.pgui.component.control.Button;
 import de.pgui.event.MouseInputEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Noah Ruben
@@ -28,7 +27,6 @@ public class View {
 	 * @param components
 	 */
 	public View(String name, List<Component> components) {
-		super();
 		this.name = name;
 		this.components = components;
 	}
@@ -41,6 +39,7 @@ public class View {
 	}
 
 	public void draw() {
+
 		for (Component component : components) {
 			if (component.isVisible()) {
 				component.beforeDraw();
@@ -60,7 +59,7 @@ public class View {
 	public void mouseClicked(MouseInputEvent mouseInputEvent) {
 		for (Component component : components) {
 			if (component instanceof IMouseInput && component.isVisible()) {
-				((IMouseInput) component).handleMouseInputEvent(mouseInputEvent);;
+				((IMouseInput) component).handleMouseInputEvent(mouseInputEvent);
 			}
 		}
 	}

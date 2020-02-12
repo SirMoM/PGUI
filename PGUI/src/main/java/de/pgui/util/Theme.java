@@ -5,12 +5,9 @@ package de.pgui.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-import com.sun.javafx.css.parser.LadderConverter;
 
 /**
  * @author Noah Ruben
@@ -33,6 +30,30 @@ public class Theme {
 	private final int outlineHighlightColor;
 	private final int textColor;
 	private final int textHighlightColor;
+
+	public int getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	public int getBackgroundHighlightColor() {
+		return backgroundHighlightColor;
+	}
+
+	public int getOutlineColor() {
+		return outlineColor;
+	}
+
+	public int getOutlineHighlightColor() {
+		return outlineHighlightColor;
+	}
+
+	public int getTextColor() {
+		return textColor;
+	}
+
+	public int getTextHighlightColor() {
+		return textHighlightColor;
+	}
 
 	/**
 	 * @param backgroundColor
@@ -62,9 +83,8 @@ public class Theme {
 
 		Properties properties = new Properties();
 		if (file != null && file.exists() && file.isFile()) {
-			File propertiesFile = file;
 			try {
-				properties.load(new FileInputStream(propertiesFile));
+				properties.load(new FileInputStream(file));
 
 				backgroundColor = Integer.valueOf(properties.getProperty(backgroundColorPropName, null));
 				backgroundHighlightColor = Integer
@@ -93,7 +113,7 @@ public class Theme {
 		return loadTheme(file);
 	}
 
-	public void saveTheme(final File saveFile) throws FileNotFoundException, IOException {
+	public void saveTheme(final File saveFile) throws IOException {
 		Properties properties = new Properties();
 		properties.setProperty(backgroundColorPropName, Integer.toString(this.backgroundColor));
 		properties.setProperty(backgroundHighlightColorPropName, Integer.toString(this.backgroundHighlightColor));
@@ -101,7 +121,7 @@ public class Theme {
 		properties.setProperty(outlineHighlightColorPropName, Integer.toString(this.outlineHighlightColor));
 		properties.setProperty(textColorPropName, Integer.toString(this.textColor));
 		properties.setProperty(textHighlightColorPropName, Integer.toString(this.textHighlightColor));
-		
+
 		properties.store(new FileOutputStream(saveFile), null);
 	}
 }

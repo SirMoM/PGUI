@@ -3,16 +3,15 @@
  */
 package de.pgui;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import de.pgui.component.Component;
 import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
-import processing.core.PConstants;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Noah Ruben
@@ -50,7 +49,6 @@ public class PGuiManager {
 
 	public void adjustSettings(PApplet pa) {
 		pa.size(windowWidth_D, windowHeight_D);
-		pa.rectMode(PConstants.RADIUS);
 	}
 
 	public void draw() {
@@ -59,7 +57,6 @@ public class PGuiManager {
 
 	public void useKeyPressed() {
 		currentView.useKeyPressed();
-
 	}
 
 	public void mouseClicked(MouseInputEvent mouseInputEvent) {
@@ -85,17 +82,29 @@ public class PGuiManager {
 		return false;
 	}
 
-	public void adjustSetup() {
+	public void adjustSetup(PApplet pa) {
+		pa.frameRate(120f);
+		//for (String fontName : PFont.list()) {
+		//	if (fontName.contains("Monospaced.bold")){
+		//		PFont pFont = pa.createFont(fontName, 20);
+		//		pa.textFont(pFont);
+		//	}
+		//}
+		pa.textFont(pa.createFont("Monospaced.plain", 20));
 	}
 
-	/** TODO DOC missing */
+	/**
+	 * TODO DOC missing
+	 */
 	public void applyTheme(Theme theme) {
 		this.currentTheme = theme;
 		this.applyTheme();
-		
+
 	}
 
-	/** TODO DOC missing */
+	/**
+	 * TODO DOC missing
+	 */
 	private void applyTheme() {
 		for (View view : views) {
 			for (Component component: view.getComponents()) {

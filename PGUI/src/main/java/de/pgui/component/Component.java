@@ -3,7 +3,6 @@
  */
 package de.pgui.component;
 
-import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 
@@ -16,23 +15,36 @@ import processing.core.PApplet;
 public abstract class Component {
 	/* TODO add Fields for the colors
 	 * !THESE FIELD-VALUES ARE Processing colors!
-	 * 
-	 * backgroundColor=16777215   
-	 * outlineColor=0 
-	 * textHighlightColor=16777215 
-	 * textColor=0 
-	 * outlineHighlightColor=220795 
-	 * backgroundHighlightColor=10545327 
-	 *  
+	 *
+	 * backgroundColor=16777215
+	 * outlineColor=0
+	 * textHighlightColor=16777215
+	 * textColor=0
+	 * outlineHighlightColor=220795
+	 * backgroundHighlightColor=10545327
+	 *
 	 */
-	
-	/** The visibility of the Component */
+
+	protected int backgroundColor;
+	protected int outlineColor;
+	protected int textHighlightColor;
+	protected int textColor;
+	protected int outlineHighlightColor;
+	protected int backgroundHighlightColor;
+
+	/**
+	 * The visibility of the Component
+	 */
 	private boolean visible = true;
 
-	/** Reference to the processing sketch */
+	/**
+	 * Reference to the processing sketch
+	 */
 	private PApplet pa;
 
-	/** X-Position of the Component */
+	/**
+	 * X-Position of the Component
+	 */
 	private int xPos;
 
 	/** Y-Position of the Component */

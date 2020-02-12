@@ -14,6 +14,6 @@ public interface IAction {
 	/**
 	 * This Function is called by the {@link Component} if it is pressed.
 	 */
-	public void fireAction();
+	void fireAction();
 
 }
