@@ -74,11 +74,13 @@ public class TestMain extends PApplet {
 
 		View view2 = new View("TEST1");
 		view2.addComponent(new Label(this, 300, 300, "Das ist ein Label"));
+		view2.addComponent(test);
 		this.manager.registerView(view);
 		this.manager.registerView(view2);
 
 		test.setAction((x) -> {
 			System.out.println("Sogar mit lambda");
+			TestMain.this.manager.goToView("TEST1");
 		});
 
 		tryBtn.setAction(new IAction() {

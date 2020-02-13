@@ -9,10 +9,8 @@ import de.pgui.util.BasicColors;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Noah Ruben
@@ -21,31 +19,30 @@ import java.util.Set;
  * @created 02.01.2020
  */
 public class PGuiManager {
-	
+
 	// temporary default values 
 	private final int windowHeight_D = 1000;
 	private final int windowWidth_D = 1000;
 
-	
-	public Set<String> viewNames;
-	private List<View> views;
+
 	private View currentView;
 	private Theme currentTheme;
-	
-	
-	/**
-	 * @param viewNames
-	 * @param views
-	 * @param currentView
-	 */
-	public PGuiManager(Set<String> viewNames, List<View> views, View currentView) {
-		this.viewNames = viewNames;
-		this.views = views;
-		this.currentView = currentView;
-	}
+	private Map<String, View> views;
 
+
+	///** TODO DO THIS WITH A MAP
+	// * @param viewNames
+	// * @param views
+	// * @param currentView
+	// */
+	//public PGuiManager(Set<String> viewNames, List<View> views, View currentView) {
+	//	this.viewNames = viewNames;
+	//	this.views = views;
+	//	this.currentView = currentView;
+	//}
+//
 	public PGuiManager() {
-		this(new HashSet<String>(), new ArrayList<View>(), null);
+		this.views = new HashMap<String, View>();
 	}
 
 	public void adjustSettings(PApplet pa) {
@@ -69,12 +66,11 @@ public class PGuiManager {
 	public boolean registerView(View view) {
 		if (currentView == null) {
 			currentView = view;
-			views.add(view);
-			viewNames.add(view.name);
+			views.put(view.name, view);
 			return true;
 		} else {
-			if (!viewNames.contains(view.name)) {
-				views.add(view);
+			if (!views.containsKey(view.name)) {
+				views.put(view.name, view);
 				return true;
 			}
 		}
@@ -82,6 +78,7 @@ public class PGuiManager {
 	}
 
 	public boolean goToView(final String viewName) {
+		currentView = views.get(viewName);
 		return false;
 	}
 
@@ -109,8 +106,8 @@ public class PGuiManager {
 	 * TODO DOC missing
 	 */
 	private void applyTheme() {
-		for (View view : views) {
-			for (Component component: view.getComponents()) {
+		for (View view : views.values()) {
+			for (Component component : view.getComponents()) {
 				component.applyTheme(currentTheme);
 			}
 		}
