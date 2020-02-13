@@ -1,69 +1,91 @@
 package de.pgui.component.control;
 
 import de.pgui.component.Component;
-import de.pgui.event.MouseInputEvent;
+import de.pgui.component.LabeledComponent;
+import de.pgui.util.Area;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
-import processing.core.PFont;
-
-import java.util.Arrays;
 
 /**
  * @author Noah Ruben
- *
- *
  * @created 09.01.2020
  */
-public class Button extends ButtonBase {
+public class Button extends LabeledComponent {
 
-	/**
-	 * @param pa     {@link Component#pa}
-	 * @param xPos   X-Position of the Button
-	 * @param yPos   Y-Position of the Button
-	 * @param width  Width of the Button
-	 * @param height Height of the Button
-	 */
-	public Button(PApplet pa, int xPos, int yPos, float width, float height, String labelText) {
-		super(pa, xPos, yPos, width, height, labelText);
-	}
+    /**
+     * TODO Missing DOC
+     *
+     * @param pa   {@link Component#pa}
+     * @param xPos X-Position of the {@link Component}
+     * @param yPos Y-Position of the {@link Component}
+     * @param text The text of the {@link LabeledComponent}
+     */
+    public Button(PApplet pa, int xPos, int yPos, String text) {
+        super(pa, xPos, yPos, text);
+        setComponentClickableArea(this.componentArea);
+    }
 
-	@Override
-	public void handleMouseInputEvent(MouseInputEvent mouseInputEvent) {
-		if (isOverRect(mouseInputEvent.getMouseEvent().getX(), mouseInputEvent.getMouseEvent().getY())) {
-			if (getButtonAction() != null) {
-				getButtonAction().fireAction();
-			} else {
-				// TODO A real logging system
-				System.out.println("No action for that button.");
-				System.out.println(Arrays.toString(PFont.list()));
-			}
-		}
-	}
+    /**
+     * @param pa     {@link Component#pa}
+     * @param xPos   X-Position of the {@link Component}
+     * @param yPos   Y-Position of the {@link Component}
+     * @param width  Width of the {@link Component}
+     * @param height Height of the {@link Component}
+     * @see Area
+     */
+    public Button(PApplet pa, int xPos, int yPos, float width, float height) {
+        super(pa, xPos, yPos, width, height);
+        setComponentClickableArea(this.componentArea);
+    }
 
-	@Override
-	public void beforeDraw() {
-	}
+    /**
+     * @param pa     {@link Component#pa}
+     * @param xPos   X-Position of the {@link Component}
+     * @param yPos   Y-Position of the {@link Component}
+     * @param width  Width of the {@link Component}
+     * @param height Height of the {@link Component}
+     * @see Area
+     */
+    public Button(PApplet pa, int xPos, int yPos, float width, float height, String text) {
+        super(pa, xPos, yPos, width, height);
+        setText(text);
+        setComponentClickableArea(this.componentArea);
+    }
 
-	@Override
-	public void draw() {
-		if (isOverRect(getPa().mouseX, getPa().mouseY)) {
-			getPa().fill(toProcessingColor(backgroundHighlightColor));
-			getPa().stroke(toProcessingColor(outlineHighlightColor));
-		} else {
-			getPa().fill(toProcessingColor(backgroundColor));
-			getPa().stroke(toProcessingColor(outlineColor));
-		}
-		getPa().rect(getxPos(), getyPos(), getWidth(), getHeight(), 7);
-		super.draw();
-	}
+    /**
+     * @param pa   {@link Component#pa}
+     * @param area {@link Component#componentArea}
+     * @see Area for the diemension
+     */
+    public Button(PApplet pa, Area area) {
+        super(pa, area);
+    }
+
+    @Override
+    public void beforeDraw() {
+    }
+
+    @Override
+    public void draw() {
+        if (isOverComponent(getPa().mouseX, getPa().mouseY)) {
+            getPa().fill(toProcessingColor(backgroundHighlightColor));
+            getPa().stroke(toProcessingColor(outlineHighlightColor));
+        } else {
+            getPa().fill(toProcessingColor(backgroundColor));
+            getPa().stroke(toProcessingColor(outlineColor));
+        }
+        getPa().rect(getxPos(), getyPos(), componentArea.getWidth(), componentArea.getHeight(), 7);
+        getPa().sphere(33);
+        super.draw();
+    }
 
 
-	@Override
-	public void applyTheme(Theme theme) {
-		super.applyTheme(theme);
-		backgroundColor = theme.getBackgroundColor();
-		outlineColor = theme.getOutlineColor();
-		outlineHighlightColor = theme.getOutlineHighlightColor();
-		backgroundHighlightColor = theme.getBackgroundHighlightColor();
-	}
+    @Override
+    public void applyTheme(Theme theme) {
+        super.applyTheme(theme);
+        backgroundColor = theme.getBackgroundColor();
+        outlineColor = theme.getOutlineColor();
+        outlineHighlightColor = theme.getOutlineHighlightColor();
+        backgroundHighlightColor = theme.getBackgroundHighlightColor();
+    }
 }

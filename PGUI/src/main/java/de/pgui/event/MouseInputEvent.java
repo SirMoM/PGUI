@@ -9,22 +9,22 @@ import java.time.LocalTime;
 
 /**
  * @author Noah Ruben
- *
  * @created 23.12.2019
  */
 public class MouseInputEvent {
-	private final LocalTime when;
-	private final MouseEvent mouseEvent;
+    private final LocalTime when;
+    private final MouseEvent mouseEvent;
+    public boolean consumed = false;
 
-	/**
-	 * @param mouseEvent {@link MouseEvent}
-	 */
-	public MouseInputEvent(MouseEvent mouseEvent) {
-		this.when = LocalTime.now();
-		this.mouseEvent = mouseEvent;
-	}
+    /**
+     * @param mouseEvent {@link MouseEvent}
+     */
+    public MouseInputEvent(MouseEvent mouseEvent) {
+        this.when = LocalTime.now();
+        this.mouseEvent = mouseEvent;
+    }
 
-	/**
+    /**
 	 * @return the when
 	 */
 	public LocalTime getWhen() {
@@ -37,9 +37,10 @@ public class MouseInputEvent {
 	public MouseEvent getMouseEvent() {
 		return mouseEvent;
 	}
-	
-	public void consume() {
-		// TODO consumes Event pos finalize ? what happens if it is in a list ?? NullPointer ?
-	}
-	
+
+    public void consume() {
+        // TODO consumes Event pos finalize ? what happens if it is in a list ?? NullPointer ?
+        consumed = true;
+    }
+
 }

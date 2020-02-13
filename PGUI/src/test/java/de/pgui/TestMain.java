@@ -3,7 +3,10 @@
  */
 package de.pgui;
 
+import de.pgui.action.IAction;
+import de.pgui.component.Component;
 import de.pgui.component.control.Button;
+import de.pgui.component.control.Label;
 import de.pgui.event.MouseInputEvent;
 import de.pgui.util.ExpandModes;
 import de.pgui.util.Theme;
@@ -62,21 +65,34 @@ public class TestMain extends PApplet {
 
 		View view = new View("TEST");
 		Button test = new Button(this, 100, 100, 500, 40, "TEST");
-		Button tryBtn = new Button(this, 500, 300, 100, 40, "TRY Das ist ein ganz langer TEXT");
+		Button tryBtn = new Button(this, 500, 300, "TRY Das ist ein ganz langer TEXT");
 		tryBtn.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
 		test.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
 		view.addComponent(test);
 		view.addComponent(tryBtn);
-		this.manager.registerView(view);
 
+
+		View view2 = new View("TEST1");
+		view2.addComponent(new Label(this, 300, 300, "Das ist ein Label"));
+		this.manager.registerView(view);
+		this.manager.registerView(view2);
+
+		test.setAction((x) -> {
+			System.out.println("Sogar mit lambda");
+		});
+
+		tryBtn.setAction(new IAction() {
+			@Override
+			public void fireAction(Component component) {
+				component.setVisible(false);
+			}
+		});
 		File file = new File("theme.pgui");
 		this.manager.applyTheme(new Theme(BASE_COLOR_L, HILI_COLOR_L, BLACK, BLACK, BLACK, BLACK));
 	}
 
 	public void draw() {
-		manager.draw();
-		text("test", 0, 0);
-		text("test", 0, 20);
+		manager.draw(this);
 	}
 
 	public void mousePressed(MouseEvent mouseEvent) {

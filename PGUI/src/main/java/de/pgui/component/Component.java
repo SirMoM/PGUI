@@ -1,200 +1,192 @@
 /**
- * 
+ *
  */
 package de.pgui.component;
 
+import de.pgui.util.Area;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
+import processing.core.PVector;
+
 
 /**
  * Base-Class for all things that are displayable by PGUI
- * 
+ *
  * @author Noah Ruben
  * @created 19.12.2019
  */
 public abstract class Component {
-	/* TODO add Fields for the colors
-	 * !THESE FIELD-VALUES ARE Processing colors!
-	 *
-	 * backgroundColor=16777215
-	 * outlineColor=0
-	 * textHighlightColor=16777215
-	 * textColor=0
-	 * outlineHighlightColor=220795
-	 * backgroundHighlightColor=10545327
-	 *
-	 */
 
-	protected int backgroundColor;
-	protected int outlineColor;
-	protected int textHighlightColor;
-	protected int textColor;
-	protected int outlineHighlightColor;
-	protected int backgroundHighlightColor;
+    /** Default background color <p>
+     *  <b>FIELD-VALUES ARE Processing colors</b> */
+    protected int outlineColor;
 
-	/**
-	 * The visibility of the Component
-	 */
-	private boolean visible = true;
+    /** Default background color <p>
+     *  <b>FIELD-VALUES ARE Processing colors</b> */
+    protected int textHighlightColor;
 
-	/**
-	 * Reference to the processing sketch
-	 */
-	private PApplet pa;
+    /** Default background color <p>
+     *  <b>FIELD-VALUES ARE Processing colors</b> */
+    protected int backgroundColor;
 
-	/**
-	 * X-Position of the Component
-	 */
-	private int xPos;
+    /** Default background color <p>
+     *  <b>FIELD-VALUES ARE Processing colors</b> */
+    protected int textColor;
 
-	/** Y-Position of the Component */
-	private int yPos;
+    /** Default background color <p>
+     *  <b>FIELD-VALUES ARE Processing colors</b> */
+    protected int outlineHighlightColor;
 
-	/** Height of the Component */
-	private float height;
+    /** Default background color <p>
+     *  <b>FIELD-VALUES ARE Processing colors</b> */
+    protected int backgroundHighlightColor;
 
-	/** Width of the Component */
-	private float width;
+    /** The visibility of the Component */
+    private boolean visible = true;
 
-	/**
-	 * @param pa {@link ProcessingGui#pa}
-	 * @param xPos {@link ProcessingGui#xPos}
-	 * @param yPos {@link ProcessingGui#yPos}
-	 */
-	public Component(PApplet pa, int xPos, int yPos) {
-		this.pa = pa;
-		this.xPos = xPos;
-		this.yPos = yPos;
-	}
-	
-	
+    /** Reference to the processing sketch */
+    private PApplet pa;
 
-	/**
-	 * @param pa {@link ProcessingGui#pa}
-	 * @param xPos {@link ProcessingGui#xPos}
-	 * @param yPos {@link ProcessingGui#yPos}
-	 */
-	public Component(PApplet pa, int xPos, int yPos, float width, float height) {
-		this(pa, xPos, yPos);
-		this.width = width;
-		this.height = height;
-	}
+    /** The {@link Area} of the Component */
+    protected Area componentArea;
 
-	/**
-	 * Transfers a HEX RGB value into the processing color value.
-	 * 
-	 * @param color a RGB-Color as int representation from the HEX-Value
-	 * @return the color as Processing color int
-	 */
-	protected int toProcessingColor(int color) {
-		return this.pa.color(this.pa.red(color), this.pa.green(color), this.pa.blue(color));
-	}
+    /**
+     * @param pa {@link Component#pa}
+     * @param xPos X-Position of the {@link Component}
+     * @param yPos Y-Position of the {@link Component}
+     * @param width Width of the {@link Component}
+     * @param height Height of the {@link Component}
+     *
+     * @see Area
+     */
+    public Component(PApplet pa, int xPos, int yPos, float width, float height) {
+        this.pa = pa;
+        this.componentArea = new Area(xPos, yPos, width, height);
+    }
 
-	/**
-	 * Transfers a HEX RGB value into the processing color value.
-	 * 
-	 * @param color a RGB-Color as String representation from the HEX-Value
-	 * @return the color as Processing color int
-	 */
-	protected int toProcessingColor(String colorStr) {
-		int color = (int) Long.parseLong(colorStr, 16);
-		return this.pa.color(this.pa.red(color), this.pa.green(color), this.pa.blue(color));
-	}
-	
-	
-	/**
-	 * Code that needs to be run before every draw of this Component.
-	 */
-	public abstract void beforeDraw();
-	
-	/**
-	 * Draws the component onto the Sketch
-	 */
-	public abstract void draw();
+    /**
+     * @param pa   {@link Component#pa}
+     * @param area {@link Component#componentArea}
+     * @see Area for the Component
+     */
+    public Component(PApplet pa, Area area) {
+        this.pa = pa;
+        this.componentArea = area;
+    }
 
-	/**
-	 * @return the pa
-	 */
-	public PApplet getPa() {
-		return pa;
-	}
+    /**
+     * Transfers a HEX RGB value into the processing color value.
+     *
+     * @param color a RGB-Color as int representation from the HEX-Value
+     * @return the color as Processing color int
+     */
+    protected int toProcessingColor(int color) {
+        return this.pa.color(this.pa.red(color), this.pa.green(color), this.pa.blue(color));
+    }
 
-	/**
-	 * @return if the component is {@link #visible}
-	 */
-	public boolean isVisible() {
-		return visible;
-	}
+    /**
+     * Transfers a HEX RGB value into the processing color value.
+     *
+     * @param colorStr a RGB-Color as String representation from the HEX-Value
+     * @return the color as Processing color int
+     */
+    protected int toProcessingColor(String colorStr) {
+        int color = (int) Long.parseLong(colorStr, 16);
+        return this.pa.color(this.pa.red(color), this.pa.green(color), this.pa.blue(color));
+    }
 
-	/**
-	 * @return the xPos
-	 */
-	public int getxPos() {
-		return xPos;
-	}
 
-	/**
-	 * @param xPos the xPos to set
-	 */
-	public void setxPos(int xPos) {
-		this.xPos = xPos;
-	}
+    /**
+     * Code that needs to be run before every draw of this Component.
+     */
+    public abstract void beforeDraw();
 
-	/**
-	 * @return the yPos
-	 */
-	public int getyPos() {
-		return yPos;
-	}
+    /**
+     * Draws the component onto the Sketch
+     */
+    public abstract void draw();
 
-	/**
-	 * @param yPos the yPos to set
-	 */
-	public void setyPos(int yPos) {
-		this.yPos = yPos;
-	}
+    /** @return the pa */
+    public PApplet getPa() {
+        return pa;
+    }
 
-	/**
-	 * @return the height
-	 */
-	public float getHeight() {
-		return height;
-	}
+    /**
+     * @return if the component is {@link #visible}
+     */
+    public boolean isVisible() {
+        return visible;
+    }
 
-	/**
-	 * @param height the height to set
-	 */
-	public void setHeight(float height) {
-		this.height = height;
-	}
+    /** @return the xPos */
+    public float getxPos() {
+        return componentArea.getxPos();
+    }
 
-	/**
-	 * @return the width
-	 */
-	public float getWidth() {
-		return width;
-	}
+    /** @param xPos the xPos to set */
+    public void setxPos(int xPos) {
+        this.componentArea.setxPos(xPos);
+    }
 
-	/**
-	 * @param width the width to set
-	 */
-	public void setWidth(float width) {
-		this.width = width;
-	}
+    /**  @return the yPos */
+    public float getyPos() {
+        return this.componentArea.getyPos();
+    }
 
-	/**
-	 * Sets the visibility of the component.
-	 * 
-	 * @param visible set true to be visible
-	 */
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
+    /** @param yPos the yPos to set */
+    public void setyPos(int yPos) {
+        this.componentArea.setyPos(yPos);
+    }
 
-	/**
-	 * This sets all color values Bases on the Theme
-	 * 
-	 * @param theme The theme for the Component.
-	 */
-	public abstract void applyTheme(Theme theme);
+
+    /** @param height the height to set */
+    public void setHeight(float height) {
+        this.componentArea.setHeight(height);
+    }
+
+    /** @param width the width to set */
+    public void setWidth(float width) {
+        this.componentArea.setWidth(width);
+    }
+
+    /**
+     * Sets the visibility of the component.
+     *
+     * @param visible set true to be visible
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    /**
+     * This sets all color values Bases on the Theme
+     *
+     * @param theme The theme for the Component.
+     */
+    public abstract void applyTheme(Theme theme);
+
+    /**
+     * Returns <code>true</code> if the Position <code>(xPos,YPos)</code>
+     * is over / in the space of the Component otherwise false.
+     *
+     * @param xPos the X of the Position
+     * @param yPos the Y of the Position
+     *
+     * @return if the position is over the Component
+     */
+    protected boolean isOverComponent(int xPos, int yPos) {
+        return this.componentArea.isOverArea(xPos, yPos);
+    }
+
+    /**
+     * Returns <code>true</code> if the Position <code>(xPos,YPos)</code>
+     * is over / in the space of the Component otherwise false.
+     *
+     * @param pos the position
+     *
+     * @return if the position is over the Component
+     */
+    protected boolean isOverComponent(PVector pos) {
+        return this.componentArea.isOverArea(pos);
+    }
 }

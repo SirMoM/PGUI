@@ -5,6 +5,7 @@ package de.pgui;
 
 import de.pgui.component.Component;
 import de.pgui.event.MouseInputEvent;
+import de.pgui.util.BasicColors;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 
@@ -51,7 +52,8 @@ public class PGuiManager {
 		pa.size(windowWidth_D, windowHeight_D);
 	}
 
-	public void draw() {
+	public void draw(PApplet pa) {
+		pa.background(BasicColors.WHITE);
 		currentView.draw();
 	}
 
@@ -68,9 +70,10 @@ public class PGuiManager {
 		if (currentView == null) {
 			currentView = view;
 			views.add(view);
+			viewNames.add(view.name);
 			return true;
 		} else {
-			if (!views.contains(view.name)) {
+			if (!viewNames.contains(view.name)) {
 				views.add(view);
 				return true;
 			}

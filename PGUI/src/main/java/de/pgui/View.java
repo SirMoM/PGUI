@@ -3,8 +3,8 @@
  */
 package de.pgui;
 
+import de.pgui.action.IMouseInput;
 import de.pgui.component.Component;
-import de.pgui.component.IMouseInput;
 import de.pgui.event.MouseInputEvent;
 
 import java.util.ArrayList;
@@ -39,7 +39,6 @@ public class View {
 	}
 
 	public void draw() {
-
 		for (Component component : components) {
 			if (component.isVisible()) {
 				component.beforeDraw();
