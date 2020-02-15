@@ -8,7 +8,7 @@ import de.pgui.util.Theme;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-
+//TODO keine Negativen werte für die Größe usw
 /**
  * Base-Class for all things that are displayable by PGUI
  *
@@ -188,5 +188,9 @@ public abstract class Component {
      */
     protected boolean isOverComponent(PVector pos) {
         return this.componentArea.isOverArea(pos);
+    }
+
+    public Area getComponentArea() {
+        return componentArea;
     }
 }

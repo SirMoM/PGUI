@@ -7,8 +7,10 @@ import de.pgui.action.IAction;
 import de.pgui.component.Component;
 import de.pgui.component.control.Button;
 import de.pgui.component.control.Label;
+import de.pgui.component.control.ListView;
 import de.pgui.component.control.RadioRutton;
 import de.pgui.event.MouseInputEvent;
+import de.pgui.util.Area;
 import de.pgui.util.ExpandModes;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
@@ -65,33 +67,47 @@ public class TestMain extends PApplet {
 		manager.adjustSetup(this);
 
 		View view = new View("TEST");
-		Button test = new Button(this, 100, 100, 500, 40, "TEST");
-		Button tryBtn = new Button(this, 500, 300, "TRY Das ist ein ganz langer TEXT");
-		tryBtn.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
-		test.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
-		view.addComponent(test);
-		view.addComponent(tryBtn);
-
-
 		View view2 = new View("TEST1");
-		view2.addComponent(new Label(this, 300, 300, "Das ist ein Label :P"));
-		view2.addComponent(test);
-		RadioRutton radioBtn = new RadioRutton(this, 225, 125, "RadioBtn");
-		view2.addComponent(radioBtn);
-		this.manager.registerView(view);
-		this.manager.registerView(view2);
 
+		Button test = new Button(this, 100, 100, 500, 40, "TEST");
+		test.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
 		test.setAction((x) -> {
 			System.out.println("Sogar mit lambda");
 			TestMain.this.manager.goToView("TEST1");
 		});
 
+		Button tryBtn = new Button(this, 500, 300, "Das ist ein Button :P");
+		tryBtn.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
 		tryBtn.setAction(new IAction() {
 			@Override
 			public void fireAction(Component component) {
 				component.setVisible(false);
 			}
 		});
+
+		RadioRutton radioBtn = new RadioRutton(this, 225, 125, "RadioBtn");
+		Label label = new Label(this, 300, 300, "Das ist ein Label :P");
+		label.setBorder(true);
+		label.setBackground(true);
+		label.setUnderline(true);
+
+
+		ListView<String> listView = new ListView<String>(this, new Area(50, 200, 400, 500));
+		listView.add("1ADS");
+		listView.add("2ADSlkdsokdsphfdspksd<jsä@easddsülkdsndsndslkOISJOIDSJASJAS"); // TODO DON'T overdraw text do it in de.pgui.component.LabeledComponent
+		listView.add("3ADS");
+
+		view.addComponent(test);
+		view.addComponent(tryBtn);
+		view.addComponent(listView);
+		view2.addComponent(label);
+		view2.addComponent(test);
+		view2.addComponent(radioBtn);
+
+		this.manager.registerView(view);
+		this.manager.registerView(view2);
+
+
 		File file = new File("theme.pgui");
 		this.manager.applyTheme(new Theme(BASE_COLOR_L, HILI_COLOR_L, BLACK, BLACK, BLACK, BLACK));
 	}

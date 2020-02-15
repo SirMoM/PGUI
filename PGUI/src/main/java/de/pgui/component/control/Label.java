@@ -8,7 +8,7 @@ import processing.core.PApplet;
 public class Label extends LabeledComponent {
 
     private boolean border = false;
-    private boolean underline = true;
+    private boolean underline = false;
     private boolean background = false;
 
     public Label(PApplet pa, int xPos, int yPos, String text) {
@@ -56,9 +56,34 @@ public class Label extends LabeledComponent {
             // yOffset is half of the height - the forth of the textSize
             // to have the text in the middle of the button
             float yOffset = componentArea.getHeight() / 2 + textSize / 4;
-
+            getPa().strokeWeight(1);
+            getPa().stroke(outlineColor);
             getPa().line(getxPos() + margin - 3, getyPos() + yOffset + 3, getxPos() + componentArea.getWidth() - margin + 3, getyPos() + yOffset + 3);
         }
         super.draw();
+    }
+
+    public boolean isBorder() {
+        return border;
+    }
+
+    public void setBorder(boolean border) {
+        this.border = border;
+    }
+
+    public boolean isUnderline() {
+        return underline;
+    }
+
+    public void setUnderline(boolean underline) {
+        this.underline = underline;
+    }
+
+    public boolean isBackground() {
+        return background;
+    }
+
+    public void setBackground(boolean background) {
+        this.background = background;
     }
 }

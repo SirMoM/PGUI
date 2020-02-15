@@ -1,5 +1,6 @@
 package de.pgui.util;
 
+import processing.core.PApplet;
 import processing.core.PVector;
 
 /**
@@ -81,6 +82,16 @@ public class Area {
 
     public PVector getSizeAsVector() {
         return new PVector(width, height);
+    }
+
+
+    /**
+     * Draws a simple rect around the Area.
+     *
+     * @param pa Reference to the Processing sketch
+     */
+    public void drawSimpleRectFromArea(PApplet pa) {
+        pa.rect(xPos, yPos, width, height);
     }
 
     public float getxPos() {

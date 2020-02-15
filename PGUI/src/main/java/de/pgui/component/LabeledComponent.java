@@ -28,7 +28,7 @@ public abstract class LabeledComponent extends ClickableComponent {
     public LabeledComponent(PApplet pa, int xPos, int yPos, String text) {
         super(pa, xPos, yPos, 0, 0);
         this.text = text;
-        this.setHeight(textSize + 20);
+        this.setHeight(textSize + 2);
         this.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
     }
 
@@ -82,7 +82,7 @@ public abstract class LabeledComponent extends ClickableComponent {
             case EXPAND_HORIZONTAL_RIGHT:
                 // calculate new Size and Round to after 2 digits after the decimal point
                 float newSize = Math.round((getPa().textWidth(getText()) + margin * 2) * 100) / 100;
-                System.out.println("Set the size to " + newSize);
+                System.out.println(this.getClass() + "Set the size to " + newSize);
                 setWidth(newSize);
                 break;
             case EXPAND_HORIZONTAL_LEFT:
