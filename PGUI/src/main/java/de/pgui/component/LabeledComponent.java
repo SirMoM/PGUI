@@ -15,9 +15,9 @@ import processing.core.PConstants;
  */
 public abstract class LabeledComponent extends ClickableComponent {
 
-    private float textSize = 20;
+    protected float textSize = 20;
     private String text;
-    private float margin = 10f;
+    protected float margin = 10f;
 
     /** TODO Missing DOC
      * @param pa     {@link Component#pa}
@@ -71,8 +71,8 @@ public abstract class LabeledComponent extends ClickableComponent {
 
     @Override
     public void applyTheme(Theme theme) {
-        textColor = theme.getTextColor();
-        textHighlightColor = theme.getTextHighlightColor();
+        textColor = toProcessingColor(theme.getTextColor());
+        textHighlightColor = toProcessingColor(theme.getTextHighlightColor());
     }
 
     // TODO Missing DOC

@@ -6,10 +6,6 @@ import de.pgui.util.Area;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 
-/**
- * @author Noah Ruben
- * @created 09.01.2020
- */
 public class Button extends LabeledComponent {
 
     /**
@@ -68,14 +64,13 @@ public class Button extends LabeledComponent {
     @Override
     public void draw() {
         if (isOverComponent(getPa().mouseX, getPa().mouseY)) {
-            getPa().fill(toProcessingColor(backgroundHighlightColor));
-            getPa().stroke(toProcessingColor(outlineHighlightColor));
+            getPa().fill(backgroundHighlightColor);
+            getPa().stroke(outlineHighlightColor);
         } else {
-            getPa().fill(toProcessingColor(backgroundColor));
-            getPa().stroke(toProcessingColor(outlineColor));
+            getPa().fill(backgroundColor);
+            getPa().stroke(outlineColor);
         }
         getPa().rect(getxPos(), getyPos(), componentArea.getWidth(), componentArea.getHeight(), 7);
-        getPa().sphere(33);
         super.draw();
     }
 
@@ -83,9 +78,9 @@ public class Button extends LabeledComponent {
     @Override
     public void applyTheme(Theme theme) {
         super.applyTheme(theme);
-        backgroundColor = theme.getBackgroundColor();
-        outlineColor = theme.getOutlineColor();
-        outlineHighlightColor = theme.getOutlineHighlightColor();
-        backgroundHighlightColor = theme.getBackgroundHighlightColor();
+        backgroundColor = toProcessingColor(theme.getBackgroundColor());
+        outlineColor = toProcessingColor(theme.getOutlineColor());
+        outlineHighlightColor = toProcessingColor(theme.getOutlineHighlightColor());
+        backgroundHighlightColor = toProcessingColor(theme.getBackgroundHighlightColor());
     }
 }

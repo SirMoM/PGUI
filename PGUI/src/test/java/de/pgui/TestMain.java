@@ -7,6 +7,7 @@ import de.pgui.action.IAction;
 import de.pgui.component.Component;
 import de.pgui.component.control.Button;
 import de.pgui.component.control.Label;
+import de.pgui.component.control.RadioRutton;
 import de.pgui.event.MouseInputEvent;
 import de.pgui.util.ExpandModes;
 import de.pgui.util.Theme;
@@ -73,8 +74,10 @@ public class TestMain extends PApplet {
 
 
 		View view2 = new View("TEST1");
-		view2.addComponent(new Label(this, 300, 300, "Das ist ein Label"));
+		view2.addComponent(new Label(this, 300, 300, "Das ist ein Label :P"));
 		view2.addComponent(test);
+		RadioRutton radioBtn = new RadioRutton(this, 225, 125, "RadioBtn");
+		view2.addComponent(radioBtn);
 		this.manager.registerView(view);
 		this.manager.registerView(view2);
 
