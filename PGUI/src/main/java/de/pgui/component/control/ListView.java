@@ -43,8 +43,8 @@ public class ListView<G> extends ClickableComponent {
         float y = getyPos() + 1.5f;
         ArrayList<Component> missingComponents = new ArrayList<Component>();
         for (G entry : entrys) {
-            Label tempLabel = new Label(getPa(), (int) x, (int) y, entry.toString());
-            tempLabel.setWidth(getComponentArea().getWidth());
+            Label tempLabel = new Label(getPa(), (int) x, (int) y, getComponentArea().getWidth(), 30);
+            tempLabel.setText(entry.toString());
             tempLabel.setBorder(true);
             missingComponents.add(tempLabel);
             y += tempLabel.getComponentArea().getHeight();

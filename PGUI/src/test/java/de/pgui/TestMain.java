@@ -86,7 +86,8 @@ public class TestMain extends PApplet {
 		});
 
 		RadioRutton radioBtn = new RadioRutton(this, 225, 125, "RadioBtn");
-		Label label = new Label(this, 300, 300, "Das ist ein Label :P");
+		Label label = new Label(this, 300, 300, 20, 20);
+		label.setText("Das ist ein Label :P");
 		label.setBorder(true);
 		label.setBackground(true);
 		label.setUnderline(true);
@@ -94,12 +95,23 @@ public class TestMain extends PApplet {
 
 		ListView<String> listView = new ListView<String>(this, new Area(50, 200, 400, 500));
 		listView.add("1ADS");
-		listView.add("2ADSlkdsokdsphfdspksd<jsä@easddsülkdsndsndslkOISJOIDSJASJAS"); // TODO DON'T overdraw text do it in de.pgui.component.LabeledComponent
+		listView.add("2ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"); // TODO DON'T overdraw text do it in de.pgui.component.LabeledComponent
 		listView.add("3ADS");
+
+		ListView<Integer> intListView = new ListView<Integer>(this, new Area(50, 200, 400, 500));
+		intListView.add(0);
+		intListView.add(0);
+		intListView.add(0);
+		intListView.add(0);
+		intListView.add(Integer.MAX_VALUE);
+		intListView.add(0);
+		intListView.add(0);
+		intListView.add(0);
 
 		view.addComponent(test);
 		view.addComponent(tryBtn);
 		view.addComponent(listView);
+		view2.addComponent(intListView);
 		view2.addComponent(label);
 		view2.addComponent(test);
 		view2.addComponent(radioBtn);

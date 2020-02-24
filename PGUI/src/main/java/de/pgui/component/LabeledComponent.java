@@ -17,7 +17,7 @@ public abstract class LabeledComponent extends ClickableComponent {
 
     protected float textSize = 20;
     private String text;
-    protected float margin = 10f;
+    protected float margin = textSize / 2;
 
     /** TODO Missing DOC
      * @param pa     {@link Component#pa}
@@ -65,7 +65,15 @@ public abstract class LabeledComponent extends ClickableComponent {
         // to have the text start left of the boarder
         float xOffset = margin;
 
-        this.getPa().text(getText(), getxPos() + xOffset, getyPos() + yOffset);
+        float width = getComponentArea().getWidth();
+        if (calculateTextWidth() > width) {
+
+            int charsToDisplay = (int) ((width - xOffset) / (textSize * (textSize / 20))); // 20 hardcoded in PGUI <-- move to PGUI CONSTANTS?
+
+            this.getPa().text(getText().toCharArray(), 0, charsToDisplay, getxPos() + xOffset, getyPos() + yOffset);
+        } else {
+            this.getPa().text(getText(), getxPos() + xOffset, getyPos() + yOffset);
+        }
     }
 
 
@@ -81,15 +89,17 @@ public abstract class LabeledComponent extends ClickableComponent {
         switch (mode) {
             case EXPAND_HORIZONTAL_RIGHT:
                 // calculate new Size and Round to after 2 digits after the decimal point
-                float newSize = Math.round((getPa().textWidth(getText()) + margin * 2) * 100) / 100;
-                System.out.println(this.getClass() + "Set the size to " + newSize);
+
+                float newSize = calculateTextWidth();
+                System.out.println("Set the size to " + newSize);
                 setWidth(newSize);
                 break;
             case EXPAND_HORIZONTAL_LEFT:
                 break;
-            case EXPAND_VERTICAL_LEFT:
+            case EXPAND_VERTICAL_TOP:
                 break;
-            case EXPAND_VERTICAL_RIGHT:
+            case EXPAND_VERTICAL_BOTTOM:
+                this.componentArea.setHeight(textSize + margin);
                 break;
         }
 
@@ -101,5 +111,14 @@ public abstract class LabeledComponent extends ClickableComponent {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public float calculateTextWidth() {
+        // This is "hard" coded in {@link de.pgui.PGuiManager#adjustSetup}
+        int baseSize = 20;
+        float textWidth = getPa().textWidth(getText());
+        float scale = textSize / baseSize;
+        float newSize = Math.round(((textWidth * scale) + margin * 2) * 100) / 100;
+        return newSize;
     }
 }

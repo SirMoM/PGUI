@@ -14,15 +14,13 @@ import java.util.Map;
 
 /**
  * @author Noah Ruben
- *
- *
  * @created 02.01.2020
  */
 public class PGuiManager {
 
 	// temporary default values 
 	private final int windowHeight_D = 1000;
-	private final int windowWidth_D = 1000;
+	private final int windowWidth_D = 1500;
 
 
 	private View currentView;

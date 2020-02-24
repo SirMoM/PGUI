@@ -90,12 +90,12 @@ public class RadioRutton extends LabeledComponent {
     public void draw() {
         boolean highlight = isOverComponent(getPa().mouseX, getPa().mouseY);
         float sizeOuterCircle = textSize / 2 + (this.componentArea.getHeight() / 2 - textSize / 2);
-        float sizeInnerCircle = sizeOuterCircle - this.textSize / 2 + 1;
+        float sizeInnerCircle = sizeOuterCircle - (this.textSize / 4);
         // TODO better name
         float circleX = getxPos() + sizeOuterCircle / 2 + 0.5f;
         float circleY = getyPos() + (this.componentArea.getHeight() / 2);
 
-        getPa().strokeWeight(3);
+        getPa().strokeWeight(2);
         if (this.selected && highlight) {
             getPa().noFill();
             getPa().stroke(outlineHighlightColor);
@@ -111,7 +111,7 @@ public class RadioRutton extends LabeledComponent {
 
             getPa().noStroke();
             getPa().fill(backgroundColor);
-            getPa().circle(circleX, circleY, sizeInnerCircle);
+            getPa().circle(circleX, circleY, sizeInnerCircle + 1);
         } else {
             getPa().noFill();
             getPa().stroke(outlineColor);
