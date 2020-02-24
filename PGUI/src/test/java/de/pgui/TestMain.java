@@ -86,7 +86,7 @@ public class TestMain extends PApplet {
 		});
 
 		RadioRutton radioBtn = new RadioRutton(this, 225, 125, "RadioBtn");
-		Label label = new Label(this, 300, 300, 20, 20);
+		Label label = new Label(this, 300, 300, 100, 20);
 		label.setText("Das ist ein Label :P");
 		label.setBorder(true);
 		label.setBackground(true);

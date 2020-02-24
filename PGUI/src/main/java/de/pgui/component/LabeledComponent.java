@@ -66,10 +66,10 @@ public abstract class LabeledComponent extends ClickableComponent {
         float xOffset = margin;
 
         float width = getComponentArea().getWidth();
-        if (calculateTextWidth() > width) {
-
-            int charsToDisplay = (int) ((width - xOffset) / (textSize * (textSize / 20))); // 20 hardcoded in PGUI <-- move to PGUI CONSTANTS?
-
+        float cWidth = calculateTextWidth();
+        if (cWidth > width) {
+            float scale = width / cWidth;
+            int charsToDisplay = (int) (getText().toCharArray().length * scale);
             this.getPa().text(getText().toCharArray(), 0, charsToDisplay, getxPos() + xOffset, getyPos() + yOffset);
         } else {
             this.getPa().text(getText(), getxPos() + xOffset, getyPos() + yOffset);
@@ -77,6 +77,7 @@ public abstract class LabeledComponent extends ClickableComponent {
     }
 
 
+    // TODO Missing DOC
     @Override
     public void applyTheme(Theme theme) {
         textColor = toProcessingColor(theme.getTextColor());
