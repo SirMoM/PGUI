@@ -1,6 +1,8 @@
 package de.pgui.util;
 
 public enum ExpandModes {
+    EXPAND,
+
     EXPAND_HORIZONTAL_LEFT,
     EXPAND_HORIZONTAL_RIGHT,
 

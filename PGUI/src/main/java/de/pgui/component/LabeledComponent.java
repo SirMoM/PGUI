@@ -8,6 +8,7 @@ import de.pgui.util.ExpandModes;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PFont;
 
 /**
  * @author Noah Ruben
@@ -15,9 +16,10 @@ import processing.core.PConstants;
  */
 public abstract class LabeledComponent extends ClickableComponent {
 
-    protected float textSize = 20;
+    protected float textSize = 50;
     private String text;
     protected float margin = textSize / 2;
+    private PFont font = getPa().createFont("Monospaced.plain", textSize);
 
     /** TODO Missing DOC
      * @param pa     {@link Component#pa}
@@ -84,20 +86,27 @@ public abstract class LabeledComponent extends ClickableComponent {
         textHighlightColor = toProcessingColor(theme.getTextHighlightColor());
     }
 
+    @Override
+    public void beforeDraw() {
+        getPa().textFont(font);
+    }
+
     // TODO Missing DOC
     public void resizeToNeededSize(ExpandModes mode) {
         // TODO resize the LabeledComponent-Component based on the size the Text occupies and the
+        float newWidth = calculateTextWidth();
+        float newHeight = calculateTextHeight();
         switch (mode) {
+            case EXPAND:
+                setWidth(newWidth);
+                setWidth(newHeight);
             case EXPAND_HORIZONTAL_RIGHT:
-                // calculate new Size and Round to after 2 digits after the decimal point
-
-                float newSize = calculateTextWidth();
-                System.out.println("Set the size to " + newSize);
-                setWidth(newSize);
+                setWidth(newWidth);
                 break;
             case EXPAND_HORIZONTAL_LEFT:
                 break;
             case EXPAND_VERTICAL_TOP:
+                setHeight(newHeight);
                 break;
             case EXPAND_VERTICAL_BOTTOM:
                 this.componentArea.setHeight(textSize + margin);
@@ -105,6 +114,7 @@ public abstract class LabeledComponent extends ClickableComponent {
         }
 
     }
+
 
     public String getText() {
         return text;
@@ -115,11 +125,13 @@ public abstract class LabeledComponent extends ClickableComponent {
     }
 
     public float calculateTextWidth() {
-        // This is "hard" coded in {@link de.pgui.PGuiManager#adjustSetup}
-        int baseSize = 20;
         float textWidth = getPa().textWidth(getText());
-        float scale = textSize / baseSize;
-        float newSize = Math.round(((textWidth * scale) + margin * 2) * 100) / 100;
+        float newSize = Math.round((textWidth + margin * 2) * 100) / 100;
+        return newSize;
+    }
+
+    private float calculateTextHeight() {
+        float newSize = Math.round((textSize + (textSize * 0.25)) * 100) / 100;
         return newSize;
     }
 }

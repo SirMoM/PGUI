@@ -4,6 +4,7 @@ import de.pgui.component.ClickableComponent;
 import de.pgui.component.Component;
 import de.pgui.util.Area;
 import de.pgui.util.BasicColors;
+import de.pgui.util.ExpandModes;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 
@@ -43,9 +44,10 @@ public class ListView<G> extends ClickableComponent {
         float y = getyPos() + 1.5f;
         ArrayList<Component> missingComponents = new ArrayList<Component>();
         for (G entry : entrys) {
-            Label tempLabel = new Label(getPa(), (int) x, (int) y, getComponentArea().getWidth(), 30);
+            Label tempLabel = new Label(getPa(), (int) x, (int) y, getComponentArea().getWidth(), 0);
             tempLabel.setText(entry.toString());
             tempLabel.setBorder(true);
+            tempLabel.resizeToNeededSize(ExpandModes.EXPAND_VERTICAL_TOP);
             missingComponents.add(tempLabel);
             y += tempLabel.getComponentArea().getHeight();
         }
