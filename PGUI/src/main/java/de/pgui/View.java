@@ -45,27 +45,31 @@ public class View {
 				component.draw();
 			}
 		}
-	}
-	public void useKeyPressed() {
-		for (Component component : components) {
+    }
+
+    public void useKeyPressed() {
+        for (Component component : components) {
 //			TODO for IKeyInput / Input stream ?
 //		if (component instanceof IMouseInput && component.isVisible()) {
 //			((IMouseInput) component).handleMouseInputEvent(mouseInputEvent);;
 //		}
-		}
+        }
 
-	}
-	public void mouseClicked(MouseInputEvent mouseInputEvent) {
-		for (Component component : components) {
-			if (component instanceof IMouseInput && component.isVisible()) {
-				((IMouseInput) component).handleMouseInputEvent(mouseInputEvent);
-			}
-		}
-	}
+    }
 
-	/** TODO DOC missing */
-	public void addComponent(Component component) {
-		components.add(component);
+    public void handleMouseEvent(MouseInputEvent mouseInputEvent) {
+        for (Component component : components) {
+            if (component instanceof IMouseInput && component.isVisible()) {
+                ((IMouseInput) component).handleMouseInputEvent(mouseInputEvent);
+            }
+        }
+    }
+
+    /**
+     * TODO DOC missing
+     */
+    public void addComponent(Component component) {
+        components.add(component);
 	}
 
 	

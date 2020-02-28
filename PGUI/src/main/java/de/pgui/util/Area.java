@@ -84,6 +84,10 @@ public class Area {
         return new PVector(width, height);
     }
 
+    @Override
+    public Area clone() {
+        return new Area(xPos, yPos, width, height);
+    }
 
     /**
      * Draws a simple rect around the Area.

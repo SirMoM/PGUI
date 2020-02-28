@@ -16,10 +16,12 @@ import processing.core.PFont;
  */
 public abstract class LabeledComponent extends ClickableComponent {
 
+    private String fontName = "Monospaced.plain";
+
     protected float textSize = 50;
     private String text;
     protected float margin = textSize / 2;
-    private PFont font = getPa().createFont("Monospaced.plain", textSize);
+    private PFont font = getPa().createFont(fontName, textSize);
 
     /** TODO Missing DOC
      * @param pa     {@link Component#pa}
@@ -30,8 +32,7 @@ public abstract class LabeledComponent extends ClickableComponent {
     public LabeledComponent(PApplet pa, int xPos, int yPos, String text) {
         super(pa, xPos, yPos, 0, 0);
         this.text = text;
-        this.setHeight(textSize + 2);
-        this.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
+        this.resizeToNeededSize(ExpandModes.EXPAND);
     }
 
     /**
@@ -99,22 +100,22 @@ public abstract class LabeledComponent extends ClickableComponent {
         switch (mode) {
             case EXPAND:
                 setWidth(newWidth);
-                setWidth(newHeight);
+                setHeight(newHeight);
             case EXPAND_HORIZONTAL_RIGHT:
                 setWidth(newWidth);
                 break;
             case EXPAND_HORIZONTAL_LEFT:
+                setWidth(newWidth); // TODO shift xPos to left
                 break;
             case EXPAND_VERTICAL_TOP:
                 setHeight(newHeight);
                 break;
             case EXPAND_VERTICAL_BOTTOM:
-                this.componentArea.setHeight(textSize + margin);
+                setHeight(newHeight); // TODO shift yPost down
                 break;
         }
 
     }
-
 
     public String getText() {
         return text;
@@ -125,6 +126,7 @@ public abstract class LabeledComponent extends ClickableComponent {
     }
 
     public float calculateTextWidth() {
+        getPa().textFont(getPa().createFont(fontName, textSize));
         float textWidth = getPa().textWidth(getText());
         float newSize = Math.round((textWidth + margin * 2) * 100) / 100;
         return newSize;

@@ -25,18 +25,26 @@ public class MouseInputEvent {
     }
 
     /**
-	 * @return the when
-	 */
-	public LocalTime getWhen() {
-		return when;
-	}
+     * @return the when
+     */
+    public LocalTime getWhen() {
+        return when;
+    }
 
-	/**
-	 * @return the mouseEvent
-	 */
-	public MouseEvent getMouseEvent() {
-		return mouseEvent;
-	}
+    /**
+     * @param event The other event to compare time with
+     * @return the time between events in nanoseconds
+     */
+    public int timeBetweenEvent(MouseInputEvent event) {
+        return event.getWhen().getNano() - this.getWhen().getNano();
+    }
+
+    /**
+     * @return the mouseEvent
+     */
+    public MouseEvent getMouseEvent() {
+        return mouseEvent;
+    }
 
     public void consume() {
         // TODO consumes Event pos finalize ? what happens if it is in a list ?? NullPointer ?

@@ -11,6 +11,14 @@ import processing.core.PVector;
  *
  */
 public abstract class ClickableComponent extends Component implements IMouseInput {
+    final static protected int PRESSED = 1;
+    final static protected int RELEASE = 2;
+    final static protected int CLICK = 3;
+    final static protected int DRAG = 4;
+    final static protected int MOVE = 5;
+    final static protected int ENTER = 6;
+    final static protected int EXIT = 7;
+    final static protected int WHEEL = 8;
 
     /**
      * The Clickable-{@link Area} of the Component
@@ -76,7 +84,7 @@ public abstract class ClickableComponent extends Component implements IMouseInpu
         if (!mouseInputEvent.consumed && isClickable) {
             if (isOverClickableArea(mouseInputEvent.getMouseEvent().getX(), mouseInputEvent.getMouseEvent().getY())) {
                 getAction().fireAction(this);
-                mouseInputEvent.consume();
+                mouseInputEvent.consume(); // TODo das könnte probleme geben
             }
         }
     }
@@ -99,14 +107,8 @@ public abstract class ClickableComponent extends Component implements IMouseInpu
         this.action = action;
         if (componentClickableArea != null) {
             isClickable = true;
-        } else {
-            // TODO LOGGING
-            System.out.println("Action is set but no clickable area is set");
         }
     }
-    //public void setAction(Consumer<IAction> action) {
-    //    this.action = action.
-    //}
 
     public Area getComponentClickableArea() {
         return componentClickableArea;
@@ -116,9 +118,6 @@ public abstract class ClickableComponent extends Component implements IMouseInpu
         this.componentClickableArea = componentClickableArea;
         if (action != null) {
             isClickable = true;
-        } else {
-            // TODO LOGGING
-            System.out.println("Clickable area is set but action is not set");
         }
     }
 }

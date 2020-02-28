@@ -2,11 +2,14 @@ package de.pgui.component.control;
 
 import de.pgui.component.Component;
 import de.pgui.component.LabeledComponent;
+import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Area;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
 
 public class Button extends LabeledComponent {
+
+    protected float curve = 7;
 
     /**
      * TODO Missing DOC
@@ -18,7 +21,7 @@ public class Button extends LabeledComponent {
      */
     public Button(PApplet pa, int xPos, int yPos, String text) {
         super(pa, xPos, yPos, text);
-        setComponentClickableArea(this.componentArea);
+        setComponentClickableArea(componentArea);
     }
 
     /**
@@ -31,7 +34,7 @@ public class Button extends LabeledComponent {
      */
     public Button(PApplet pa, int xPos, int yPos, float width, float height) {
         super(pa, xPos, yPos, width, height);
-        setComponentClickableArea(this.componentArea);
+        setComponentClickableArea(componentArea);
     }
 
     /**
@@ -45,7 +48,7 @@ public class Button extends LabeledComponent {
     public Button(PApplet pa, int xPos, int yPos, float width, float height, String text) {
         super(pa, xPos, yPos, width, height);
         setText(text);
-        setComponentClickableArea(this.componentArea);
+        setComponentClickableArea(componentArea);
     }
 
     /**
@@ -55,6 +58,7 @@ public class Button extends LabeledComponent {
      */
     public Button(PApplet pa, Area area) {
         super(pa, area);
+        setComponentClickableArea(componentArea);
     }
 
     @Override
@@ -70,10 +74,16 @@ public class Button extends LabeledComponent {
             getPa().fill(backgroundColor);
             getPa().stroke(outlineColor);
         }
-        getPa().rect(getxPos(), getyPos(), componentArea.getWidth(), componentArea.getHeight(), 7);
+        getPa().rect(getxPos(), getyPos(), componentArea.getWidth(), componentArea.getHeight(), this.curve);
         super.draw();
     }
 
+    @Override
+    public void handleMouseInputEvent(MouseInputEvent mouseInputEvent) {
+        if (mouseInputEvent.getMouseEvent().getAction() == CLICK) {
+            super.handleMouseInputEvent(mouseInputEvent);
+        }
+    }
 
     @Override
     public void applyTheme(Theme theme) {

@@ -193,4 +193,9 @@ public abstract class Component {
     public Area getComponentArea() {
         return componentArea;
     }
+
+    public void setPos(PVector pos) {
+        this.componentArea.setxPos(pos.x);
+        this.componentArea.setyPos(pos.y);
+    }
 }

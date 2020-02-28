@@ -1,33 +1,55 @@
 package de.pgui.component.control;
 
+import de.pgui.action.IAction;
 import de.pgui.component.ClickableComponent;
 import de.pgui.component.Component;
+import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Area;
 import de.pgui.util.BasicColors;
 import de.pgui.util.ExpandModes;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
+import processing.core.PConstants;
+import processing.core.PVector;
 
 import java.util.ArrayList;
 import java.util.List;
-
-// TODO how to do Scroll weel
+// TODO rewrite this total shit show
+// TODO how to do Scroll wheel
+// TODO Untermenu
+// TODO CLickable
+// TODO index
+// TODO selection modes
+// TODO TO String converter for lines
 
 public class ListView<G> extends ClickableComponent {
 
     private List<G> entrys;
+    private List<G> entrysToShow;
     private List<Component> subComponents;
+
+    private List<ClickableComponent> subMenu;
+    private boolean showSubMenu = false;
+
+    private boolean horizontalScrollBar = false;
+    private boolean verticalScrollBar = false;
+
 
     public ListView(PApplet pa, int xPos, int yPos, float width, float height) {
         super(pa, xPos, yPos, width, height);
         entrys = new ArrayList<G>();
         subComponents = new ArrayList<Component>();
+        subMenu = new ArrayList<ClickableComponent>();
     }
 
     public ListView(PApplet pa, Area area) {
         super(pa, area);
         entrys = new ArrayList<G>();
+        entrysToShow = new ArrayList<G>();
         subComponents = new ArrayList<Component>();
+        subMenu = new ArrayList<ClickableComponent>();
+        addToSubMenu("item");
+        addToSubMenu("item2");
     }
 
     /**
@@ -35,8 +57,22 @@ public class ListView<G> extends ClickableComponent {
      */
     @Override
     public void beforeDraw() {
+        float totalHeight = entrys.size() * 20;
+        if (totalHeight > componentArea.getHeight()) {
+            System.out.println("Oversize");
+        }
         // TODO calculate size ?
         // TODO calc wich part of the Array to draw
+        int x = getPa().mouseX;
+        int y = getPa().mouseY;
+        Area tempArea = componentArea.clone();
+        tempArea.setxPos(componentArea.getxPos() - 200);
+        tempArea.setyPos(componentArea.getyPos() - 200);
+        tempArea.setHeight(componentArea.getHeight() + 400);
+        tempArea.setWidth(componentArea.getWidth() + 400);
+        if (!tempArea.isOverArea(x, y)) {
+            showSubMenu = false;
+        }
     }
 
     private List<Component> generateMissingLabels() { // TODO übergabeparam wenn neu entrys ?
@@ -70,6 +106,67 @@ public class ListView<G> extends ClickableComponent {
         for (Component c : subComponents) {
             c.draw();
         }
+        if (showSubMenu) {
+            for (Component c : subMenu) {
+                c.draw();
+            }
+        }
+    }
+
+    @Override
+    public void handleMouseInputEvent(MouseInputEvent mouseInputEvent) {
+        if (isOverComponent(mouseInputEvent.getMouseEvent().getX(), mouseInputEvent.getMouseEvent().getY())) {
+            switch (mouseInputEvent.getMouseEvent().getAction()) {
+                case WHEEL:
+                    if (horizontalScrollBar) {
+                    }
+                    break;
+                case CLICK:
+                    int button = mouseInputEvent.getMouseEvent().getButton();
+                    if (button == PConstants.RIGHT) {
+                        showSubMenu = !showSubMenu;
+                        PVector pos = new PVector(getPa().mouseX, getPa().mouseX);
+                        for (int i = 0; i < subMenu.size(); i++) {
+                            float y = i * subMenu.get(i).getComponentArea().getHeight() + 5; // Push buttons down
+                            subMenu.get(i).setPos(pos.add(0, y));
+                        }
+
+                    }
+                    if (button == PConstants.LEFT) {
+                        if (showSubMenu) {
+                            for (ClickableComponent c : subMenu) {
+                                c.handleMouseInputEvent(mouseInputEvent);
+                            }
+                        }
+                        // TODO action auf dem Listen element / index
+                    }
+                default:
+//                    throw new IllegalStateException("Unexpected value: " + mouseInputEvent.getMouseEvent().getAction());
+//                    System.out.println("Unexpected value: " + mouseInputEvent.getMouseEvent().getAction());
+            }
+            super.handleMouseInputEvent(mouseInputEvent);
+        }
+    }
+
+    public List<ClickableComponent> getSubMenu() {
+        return subMenu;
+    }
+
+    public void setSubMenu(List<ClickableComponent> subMenu) {
+        this.subMenu = subMenu;
+    }
+
+    public boolean addToSubMenu(String item) {
+        Button button = new Button(getPa(), 0, 0, item);
+        button.setAction(new IAction() {
+            @Override
+            public void fireAction(Component component) {
+                System.out.println(component.getClass().getName() + "Submenu");
+            }
+        });
+        button.applyTheme(Theme.loadTheme("theme.pgui"));
+        button.curve = 0;
+        return this.subMenu.add(button);
     }
 
     public List<G> getEntrys() {
