@@ -15,19 +15,24 @@ import processing.core.PFont;
  * @created 09.01.2020
  */
 public abstract class LabeledComponent extends ClickableComponent {
+    // TODO DOC missing
 
     private String fontName = "Monospaced.plain";
 
-    protected float textSize = 50;
+    private float textSize = 50;
+
     private String text;
-    protected float margin = textSize / 2;
+
     private PFont font = getPa().createFont(fontName, textSize);
 
-    /** TODO Missing DOC
-     * @param pa     {@link Component#pa}
-     * @param xPos   X-Position of the {@link Component}
-     * @param yPos   Y-Position of the {@link Component}
+    protected float margin = textSize / 4;
+
+    /**
+     * TODO Missing DOC
      *
+     * @param pa   {@link Component#pa}
+     * @param xPos X-Position of the {@link Component}
+     * @param yPos Y-Position of the {@link Component}
      */
     public LabeledComponent(PApplet pa, int xPos, int yPos, String text) {
         super(pa, xPos, yPos, 0, 0);
@@ -105,6 +110,8 @@ public abstract class LabeledComponent extends ClickableComponent {
                 setWidth(newWidth);
                 break;
             case EXPAND_HORIZONTAL_LEFT:
+                float endX = getxPos() + getComponentArea().getWidth();
+                setxPos((int) (endX - newWidth));
                 setWidth(newWidth); // TODO shift xPos to left
                 break;
             case EXPAND_VERTICAL_TOP:
@@ -135,5 +142,14 @@ public abstract class LabeledComponent extends ClickableComponent {
     private float calculateTextHeight() {
         float newSize = Math.round((textSize + (textSize * 0.25)) * 100) / 100;
         return newSize;
+    }
+
+    public float getTextSize() {
+        return textSize;
+    }
+
+    public void setTextSize(float textSize) {
+        getPa().createFont(fontName, textSize);
+        this.textSize = textSize;
     }
 }

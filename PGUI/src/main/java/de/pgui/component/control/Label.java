@@ -55,7 +55,7 @@ public class Label extends LabeledComponent {
         if (underline) {
             // yOffset is half of the height - the forth of the textSize
             // to have the text in the middle of the button
-            float yOffset = componentArea.getHeight() / 2 + textSize / 4;
+            float yOffset = componentArea.getHeight() / 2 + getTextSize() / 4;
             getPa().strokeWeight(1);
             getPa().stroke(outlineColor);
             getPa().line(getxPos() + margin - 3, getyPos() + yOffset + 3, getxPos() + componentArea.getWidth() - margin + 3, getyPos() + yOffset + 3);

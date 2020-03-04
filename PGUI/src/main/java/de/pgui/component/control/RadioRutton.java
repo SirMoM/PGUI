@@ -89,8 +89,8 @@ public class RadioRutton extends LabeledComponent {
     @Override
     public void draw() {
         boolean highlight = isOverComponent(getPa().mouseX, getPa().mouseY);
-        float sizeOuterCircle = textSize / 2 + (this.componentArea.getHeight() / 2 - textSize / 2);
-        float sizeInnerCircle = sizeOuterCircle - (this.textSize / 4);
+        float sizeOuterCircle = getTextSize() / 2 + (this.componentArea.getHeight() / 2 - getTextSize() / 2);
+        float sizeInnerCircle = sizeOuterCircle - (getTextSize() / 4);
         // TODO better name
         float circleX = getxPos() + sizeOuterCircle / 2 + 0.5f;
         float circleY = getyPos() + (this.componentArea.getHeight() / 2);

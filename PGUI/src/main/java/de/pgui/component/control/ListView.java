@@ -14,13 +14,7 @@ import processing.core.PVector;
 
 import java.util.ArrayList;
 import java.util.List;
-// TODO rewrite this total shit show
-// TODO how to do Scroll wheel
-// TODO Untermenu
-// TODO CLickable
-// TODO index
-// TODO selection modes
-// TODO TO String converter for lines
+
 
 public class ListView<G> extends ClickableComponent {
 

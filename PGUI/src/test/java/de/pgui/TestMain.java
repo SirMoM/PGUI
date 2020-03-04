@@ -5,10 +5,7 @@ package de.pgui;
 
 import de.pgui.action.IAction;
 import de.pgui.component.Component;
-import de.pgui.component.control.Button;
-import de.pgui.component.control.Label;
-import de.pgui.component.control.ListView;
-import de.pgui.component.control.RadioRutton;
+import de.pgui.component.control.*;
 import de.pgui.event.MouseInputEvent;
 import de.pgui.util.Area;
 import de.pgui.util.ExpandModes;
@@ -82,13 +79,15 @@ public class TestMain extends PApplet {
         backBtn.resizeToNeededSize(ExpandModes.EXPAND);
 
         Button tryBtn = new Button(this, 500, 300, "Das ist ein Button :P");
-        tryBtn.resizeToNeededSize(ExpandModes.EXPAND_HORIZONTAL_RIGHT);
+        tryBtn.setTextSize(20);
+        tryBtn.resizeToNeededSize(ExpandModes.EXPAND);
         tryBtn.setAction(new IAction() {
             @Override
             public void fireAction(Component component) {
                 component.setVisible(false);
             }
         });
+
 
         RadioRutton radioBtn = new RadioRutton(this, 225, 125, "RadioBtn");
 
@@ -97,6 +96,7 @@ public class TestMain extends PApplet {
         label.setBackground(true);
         label.setUnderline(true);
 
+        Scrollbar scrollbar = new Scrollbar(this, 1, 1, true, 1000);
 
         ListView<String> listView = new ListView<String>(this, new Area(50, 200, 400, 500));
         listView.add("1ADS");
@@ -122,6 +122,7 @@ public class TestMain extends PApplet {
         intListView.add(0);
         intListView.add(0);
 
+        view.addComponent(scrollbar);
         view.addComponent(test);
         view.addComponent(tryBtn);
         view.addComponent(listView);

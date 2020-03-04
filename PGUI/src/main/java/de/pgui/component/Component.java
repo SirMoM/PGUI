@@ -118,9 +118,11 @@ public abstract class Component {
         return visible;
     }
 
-    /** @return the xPos */
-    public float getxPos() {
-        return componentArea.getxPos();
+    /**
+     * @return the xPos
+     */
+    public int getxPos() {
+        return (int) componentArea.getxPos();
     }
 
     /** @param xPos the xPos to set */
@@ -128,9 +130,11 @@ public abstract class Component {
         this.componentArea.setxPos(xPos);
     }
 
-    /**  @return the yPos */
-    public float getyPos() {
-        return this.componentArea.getyPos();
+    /**
+     * @return the yPos
+     */
+    public int getyPos() {
+        return (int) this.componentArea.getyPos();
     }
 
     /** @param yPos the yPos to set */

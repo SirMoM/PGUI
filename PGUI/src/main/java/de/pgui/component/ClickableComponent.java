@@ -81,6 +81,7 @@ public abstract class ClickableComponent extends Component implements IMouseInpu
 
     @Override
     public void handleMouseInputEvent(MouseInputEvent mouseInputEvent) {
+        System.out.println(mouseInputEvent.getMouseEvent());
         if (!mouseInputEvent.consumed && isClickable) {
             if (isOverClickableArea(mouseInputEvent.getMouseEvent().getX(), mouseInputEvent.getMouseEvent().getY())) {
                 getAction().fireAction(this);
