@@ -7,9 +7,16 @@ import de.pgui.util.Area;
 import de.pgui.util.ExpandModes;
 import de.pgui.util.Theme;
 import processing.core.PApplet;
+import processing.core.PVector;
 import processing.event.MouseEvent;
 
 public class Scrollbar extends ClickableComponent {
+
+    private enum states {WAITING, DRAGGING_LEFT, DRAGGING_RIGHT, STOP}
+
+    private states state = states.WAITING;
+    private PVector dragPos;
+
 
     private final int defaultWidth = 25;
 
@@ -41,9 +48,6 @@ public class Scrollbar extends ClickableComponent {
     // TODo better names for the Thing in the middle(rect) and the space it can move in(space)
     private Area rect;
     private final Area space;
-
-    private int lastDragX;
-
 
     /**
      * @param pa     {@link Component#pa}
@@ -87,6 +91,7 @@ public class Scrollbar extends ClickableComponent {
 
             this.space = new Area(getxPos() + moveLeftDownButton.getComponentArea().getWidth(), getyPos(), getComponentArea().getWidth() - moveLeftDownButton.getComponentArea().getWidth() - moveRightTopButton.getComponentArea().getWidth(), getComponentArea().getHeight());
             this.rect = new Area(space.getxPos(), getyPos(), defaultWidth, getComponentArea().getHeight());
+            dragPos = new PVector(space.getxPos(), 0);
 
         } else {
             this.getComponentArea().setWidth(defaultWidth);
@@ -142,16 +147,23 @@ public class Scrollbar extends ClickableComponent {
     @Override
     public void handleMouseInputEvent(MouseInputEvent mouseInputEvent) {
         MouseEvent event = mouseInputEvent.getMouseEvent();
+        float stepWidth = space.getWidth() / steps;
         if (event.getAction() == CLICK) {
+            if (space.isOverArea(event.getX(), event.getY())) {
+                rect.setxPos(event.getX());
+            }
             super.handleMouseInputEvent(mouseInputEvent);
-        } else if (event.getAction() == DRAG && space.isOverArea(event.getX(), event.getY())) {
-            if (rect.getxPos() + rect.getWidth() > event.getX()) {
-                incrementIndex(1);
+        } else if (event.getAction() == PRESSED && space.isOverArea(event.getX(), event.getY())) {
+            state = states.WAITING;
+        } else if (event.getAction() == RELEASE && space.isOverArea(event.getX(), event.getY())) {
+            state = states.STOP;
+            rect.setxPos(event.getX());
+        } else if (event.getAction() == DRAG && state == states.WAITING) {
+            if (space.isOverArea(event.getX(), (int) (space.getyPos() + 1)) && event.getX() < (space.getxPos() + space.getWidth()) - defaultWidth) {
+                rect.setxPos(event.getX());
+                positionIndex = getIndexFromX();
             }
-            if (lastDragX < event.getX()) {
-                incrementIndex(-1);
-            }
-            lastDragX = event.getX();
+
         }
 
         moveLeftDownButton.handleMouseInputEvent(mouseInputEvent);
@@ -181,6 +193,12 @@ public class Scrollbar extends ClickableComponent {
         }
         float stepWidth = space.getWidth() / steps;
         float x = space.getxPos() + (stepWidth * positionIndex);
+        return x;
+    }
+
+    private int getIndexFromX() {
+        float stepWidth = space.getWidth() / steps;
+        int x = (int) (rect.getxPos() / stepWidth);
         return x;
     }
 
