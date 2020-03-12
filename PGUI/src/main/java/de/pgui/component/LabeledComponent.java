@@ -16,6 +16,7 @@ import processing.core.PFont;
  */
 public abstract class LabeledComponent extends ClickableComponent {
     // TODO DOC missing
+    // TODO force show TEXT
 
     private String fontName = "Monospaced.plain";
 
@@ -73,7 +74,7 @@ public abstract class LabeledComponent extends ClickableComponent {
         // to have the text start left of the boarder
         float xOffset = margin;
 
-        float width = getComponentArea().getWidth();
+        float width = getWidth();
         float cWidth = calculateTextWidth();
         if (cWidth > width) {
             float scale = width / cWidth;
@@ -110,7 +111,7 @@ public abstract class LabeledComponent extends ClickableComponent {
                 setWidth(newWidth);
                 break;
             case EXPAND_HORIZONTAL_LEFT:
-                float endX = getxPos() + getComponentArea().getWidth();
+                float endX = getxPos() + getWidth();
                 setxPos((int) (endX - newWidth));
                 setWidth(newWidth); // TODO shift xPos to left
                 break;
@@ -132,14 +133,14 @@ public abstract class LabeledComponent extends ClickableComponent {
         this.text = text;
     }
 
-    public float calculateTextWidth() {
+    protected float calculateTextWidth() {
         getPa().textFont(getPa().createFont(fontName, textSize));
         float textWidth = getPa().textWidth(getText());
         float newSize = Math.round((textWidth + margin * 2) * 100) / 100;
         return newSize;
     }
 
-    private float calculateTextHeight() {
+    protected float calculateTextHeight() {
         float newSize = Math.round((textSize + (textSize * 0.25)) * 100) / 100;
         return newSize;
     }

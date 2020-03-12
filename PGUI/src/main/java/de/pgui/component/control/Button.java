@@ -74,7 +74,7 @@ public class Button extends LabeledComponent {
             getPa().fill(backgroundColor);
             getPa().stroke(outlineColor);
         }
-        getPa().rect(getxPos(), getyPos(), componentArea.getWidth(), componentArea.getHeight(), this.curve);
+        getPa().rect(getxPos(), getyPos(), getWidth(), getHeight(), this.curve);
         super.draw();
     }
 

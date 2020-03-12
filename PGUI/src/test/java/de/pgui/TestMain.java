@@ -96,9 +96,9 @@ public class TestMain extends PApplet {
         label.setBackground(true);
         label.setUnderline(true);
 
-        Scrollbar scrollbar = new Scrollbar(this, 1, 1, true, 1000);
+        Scrollbar scrollbar = new Scrollbar(this, 10, 10, true, 800);
 
-        ListView<String> listView = new ListView<String>(this, new Area(50, 200, 400, 500));
+        ListView<String> listView = new ListView<String>(this, 50, 200, 400, 300);
         listView.add("1ADS");
         listView.add("2ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"); // TODO DON'T overdraw text do it in de.pgui.component.LabeledComponent
         listView.add("3ADS");
@@ -112,24 +112,24 @@ public class TestMain extends PApplet {
         listView.add("0ADS");
 
 
-        ListView<Integer> intListView = new ListView<Integer>(this, new Area(50, 200, 400, 500));
-        intListView.add(0);
-        intListView.add(0);
-        intListView.add(0);
-        intListView.add(0);
-        intListView.add(Integer.MAX_VALUE);
-        intListView.add(0);
-        intListView.add(0);
-        intListView.add(0);
+        ListViewTrash<Integer> intListViewTrash = new ListViewTrash<Integer>(this, new Area(50, 200, 400, 500));
+        intListViewTrash.add(0);
+        intListViewTrash.add(0);
+        intListViewTrash.add(0);
+        intListViewTrash.add(0);
+        intListViewTrash.add(Integer.MAX_VALUE);
+        intListViewTrash.add(0);
+        intListViewTrash.add(0);
+        intListViewTrash.add(0);
 
         view.addComponent(scrollbar);
-        view.addComponent(test);
-        view.addComponent(tryBtn);
+//        view.addComponent(test);
+//        view.addComponent(tryBtn);
         view.addComponent(listView);
-        view2.addComponent(intListView);
-        view2.addComponent(label);
-        view2.addComponent(radioBtn);
-        view2.addComponent(backBtn);
+//        view2.addComponent(intListViewTrash);
+//        view2.addComponent(label);
+//        view2.addComponent(radioBtn);
+//        view2.addComponent(backBtn);
 
         this.manager.registerView(view);
         this.manager.registerView(view2);

@@ -5,6 +5,8 @@ import processing.core.PVector;
 
 /**
  * TODO Missing DOC
+ * TODO Add method for x + width
+ * TODO Add method for x + width
  */
 public class Area {
     /**

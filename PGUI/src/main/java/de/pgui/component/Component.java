@@ -119,41 +119,6 @@ public abstract class Component {
     }
 
     /**
-     * @return the xPos
-     */
-    public int getxPos() {
-        return (int) componentArea.getxPos();
-    }
-
-    /** @param xPos the xPos to set */
-    public void setxPos(int xPos) {
-        this.componentArea.setxPos(xPos);
-    }
-
-    /**
-     * @return the yPos
-     */
-    public int getyPos() {
-        return (int) this.componentArea.getyPos();
-    }
-
-    /** @param yPos the yPos to set */
-    public void setyPos(int yPos) {
-        this.componentArea.setyPos(yPos);
-    }
-
-
-    /** @param height the height to set */
-    public void setHeight(float height) {
-        this.componentArea.setHeight(height);
-    }
-
-    /** @param width the width to set */
-    public void setWidth(float width) {
-        this.componentArea.setWidth(width);
-    }
-
-    /**
      * Sets the visibility of the component.
      *
      * @param visible set true to be visible
@@ -194,12 +159,48 @@ public abstract class Component {
         return this.componentArea.isOverArea(pos);
     }
 
-    public Area getComponentArea() {
-        return componentArea;
-    }
-
     public void setPos(PVector pos) {
         this.componentArea.setxPos(pos.x);
         this.componentArea.setyPos(pos.y);
+    }
+
+    public PVector getPositionAsVector() {
+        return componentArea.getPositionAsVector();
+    }
+
+    public PVector getSizeAsVector() {
+        return componentArea.getSizeAsVector();
+    }
+
+    public float getxPos() {
+        return componentArea.getxPos();
+    }
+
+    public void setxPos(float xPos) {
+        componentArea.setxPos(xPos);
+    }
+
+    public float getyPos() {
+        return componentArea.getyPos();
+    }
+
+    public void setyPos(float yPos) {
+        componentArea.setyPos(yPos);
+    }
+
+    public float getHeight() {
+        return componentArea.getHeight();
+    }
+
+    public void setHeight(float height) {
+        componentArea.setHeight(height);
+    }
+
+    public float getWidth() {
+        return componentArea.getWidth();
+    }
+
+    public void setWidth(float width) {
+        componentArea.setWidth(width);
     }
 }
