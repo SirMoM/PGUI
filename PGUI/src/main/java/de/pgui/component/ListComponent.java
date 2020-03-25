@@ -175,6 +175,14 @@ public abstract class ListComponent<G> extends LabeledComponent {
     // #                                     CELL                                                                           #
     // ######################################################################################################################
     protected class Cell extends Button {
+
+        private String fullText;
+
+        public boolean isTooWide = false;
+
+        public boolean isSelected = false;
+
+
         /**
          * TODO Missing DOC
          *
@@ -185,12 +193,32 @@ public abstract class ListComponent<G> extends LabeledComponent {
          */
         public Cell(PApplet pa, int xPos, int yPos, String text) {
             super(pa, xPos, yPos, ListComponent.this.getWidth(), ListComponent.this.calculateTextHeight(), text);
+            this.fullText = text;
             curve = 0;
+            if (this.calculateTextWidth() > ListComponent.this.getWidth()) isTooWide = true;
         }
 
         public Cell(String text) {
             super(ListComponent.this.getPa(), (int) ListComponent.this.getxPos(), (int) ListComponent.this.getyPos(), ListComponent.this.getWidth(), ListComponent.this.calculateTextHeight(), text);
+            this.fullText = text;
             curve = 0;
+            if (this.calculateTextWidth() > ListComponent.this.getWidth()) isTooWide = true;
+        }
+
+        public void shiftText(int pos) {
+            if (this.fullText.length() > pos) {
+                final String newCellText = fullText.substring(pos);
+                this.setText(newCellText);
+            } else {
+                this.setText("");
+            }
+        }
+
+        @Override
+        public void draw() {
+            backgroundColor = toProcessingColor(BasicColors.WHITE);
+            if (isSelected) backgroundColor = backgroundHighlightColor;
+            super.draw();
         }
 
         @Override
@@ -200,6 +228,14 @@ public abstract class ListComponent<G> extends LabeledComponent {
             outlineColor = toProcessingColor(theme.getOutlineColor());
             outlineHighlightColor = toProcessingColor(theme.getOutlineHighlightColor());
             backgroundHighlightColor = toProcessingColor(theme.getBackgroundHighlightColor());
+        }
+
+        public String getFullText() {
+            return this.fullText;
+        }
+
+        public void setFullText(String text) {
+            fullText = text;
         }
     }
 }

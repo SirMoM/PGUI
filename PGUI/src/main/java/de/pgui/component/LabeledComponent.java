@@ -20,7 +20,7 @@ public abstract class LabeledComponent extends ClickableComponent {
 
     private String fontName = "Monospaced.plain";
 
-    private float textSize = 50;
+    private float textSize = 30;
 
     private String text;
 
@@ -133,9 +133,9 @@ public abstract class LabeledComponent extends ClickableComponent {
         this.text = text;
     }
 
-    protected float calculateTextWidth() {
+    public float calculateTextWidth() {
         getPa().textFont(getPa().createFont(fontName, textSize));
-        float textWidth = getPa().textWidth(getText());
+        float textWidth = getPa().textWidth(this.getText());
         float newSize = Math.round((textWidth + margin * 2) * 100) / 100;
         return newSize;
     }

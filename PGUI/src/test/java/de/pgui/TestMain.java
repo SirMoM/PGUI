@@ -99,17 +99,22 @@ public class TestMain extends PApplet {
         Scrollbar scrollbar = new Scrollbar(this, 10, 10, true, 800);
 
         ListView<String> listView = new ListView<String>(this, 50, 200, 400, 300);
+        listView.add("0ADS");
         listView.add("1ADS");
         listView.add("2ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"); // TODO DON'T overdraw text do it in de.pgui.component.LabeledComponent
+        listView.add("123456789012345678901234567890123456789"); // TODO DON'T overdraw text do it in de.pgui.component.LabeledComponent
         listView.add("3ADS");
         listView.add("4ADS");
         listView.add("5ADS");
         listView.add("6ADS");
         listView.add("7ADS");
         listView.add("8ADS");
-        listView.add("8ADS");
         listView.add("9ADS");
-        listView.add("0ADS");
+        listView.add("AADS");
+        listView.add("BADS");
+        listView.add("CADS");
+        listView.add("DADS");
+        listView.add("FADS");
 
 
         ListViewTrash<Integer> intListViewTrash = new ListViewTrash<Integer>(this, new Area(50, 200, 400, 500));
@@ -123,13 +128,13 @@ public class TestMain extends PApplet {
         intListViewTrash.add(0);
 
         view.addComponent(scrollbar);
-//        view.addComponent(test);
-//        view.addComponent(tryBtn);
+        view.addComponent(test);
+        view.addComponent(tryBtn);
         view.addComponent(listView);
-//        view2.addComponent(intListViewTrash);
-//        view2.addComponent(label);
-//        view2.addComponent(radioBtn);
-//        view2.addComponent(backBtn);
+        view2.addComponent(intListViewTrash);
+        view2.addComponent(label);
+        view2.addComponent(radioBtn);
+        view2.addComponent(backBtn);
 
         this.manager.registerView(view);
         this.manager.registerView(view2);

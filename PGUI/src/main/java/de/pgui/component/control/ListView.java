@@ -8,12 +8,20 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 
+/**
+ * @param <G>
+ */
 public class ListView<G> extends ListComponent<G> {
 
     /**
      * {@link ContextMenu Context-Menu} of this {@link ListComponent}
      */
     private ContextMenu subMenu;
+
+    /**
+     * TODO Missing Doc
+     */
+    private int longestCell = 0;
 
     /**
      * @param pa     {@link Component#pa}
@@ -53,24 +61,48 @@ public class ListView<G> extends ListComponent<G> {
             float y = getyPos();
             float x = getxPos();
 
-            float lastIncrement = 0;
+            horizontalScrollBar.setVisible(false);
+            verticalScrollBar.setVisible(false);
+
             for (int i = showCellFrom, cellsSize = cells.size(); i < cellsSize; i++) {
                 Cell cell = cells.get(i);
                 cell.setyPos(y);
                 cell.setxPos(x);
-                cell.setWidth(getWidth() * (getxPos() / cell.getxPos()));
-                if (verticalScrollBar.isVisible())
-                    cell.setWidth(getWidth() - ListView.this.verticalScrollBar.getWidth());
-                lastIncrement = cell.getHeight();
-                y += lastIncrement;
+                if (cell.isTooWide) {
+                    horizontalScrollBar.setVisible(true);
+
+                    int cellTextLength = cell.getFullText().length();
+
+                    if (longestCell < cellTextLength) {
+                        float scale = cell.getWidth() / cell.calculateTextWidth();
+                        int charsToDisplay = (int) (cell.getText().length() * scale);
+                        longestCell = (cellTextLength > longestCell - charsToDisplay ? cellTextLength - charsToDisplay : longestCell);
+                    }
+                }
             }
-            if (y > componentArea.getHeight() - horizontalScrollBar.getHeight() - lastIncrement) {
-                verticalScrollBar.setVisible(true);
+            for (int i = showCellFrom, cellsSize = cells.size(); i < cellsSize; i++) {
+                Cell cell = cells.get(i);
+                if (verticalScrollBar.isVisible()) {
+                    cell.setWidth(ListView.this.getWidth() - verticalScrollBar.getWidth());
+                } else {
+                    cell.setWidth(ListView.this.getWidth());
+                }
             }
+            hasValuesChanged = !hasValuesChanged;
         }
 
+        Cell lastCell = cells.get(cells.size() - 1);
+        float yTemp = (horizontalScrollBar.isVisible()) ? getxPos() + getHeight() - lastCell.getHeight() : getxPos() + getHeight() - lastCell.getHeight() - horizontalScrollBar.getHeight();
+        if (lastCell.getyPos() + lastCell.getHeight() > yTemp) {
+            verticalScrollBar.setVisible(true);
+            horizontalScrollBar.setSteps(longestCell);
+        }
         if (horizontalScrollBar.isVisible()) {
             horizontalScrollBar.beforeDraw();
+        } else {
+            if (horizontalScrollBar.getPositionIndex() > 0) {
+                horizontalScrollBar.setVisible(true);
+            }
         }
 
         if (verticalScrollBar.isVisible()) {
@@ -80,14 +112,17 @@ public class ListView<G> extends ListComponent<G> {
         } else {
             horizontalScrollBar.setWidth(getWidth());
         }
-
     }
 
     @Override
     public void draw() {
         for (int i = showCellFrom; i < cells.size(); i++) {
             Cell cell = cells.get(i);
-            if (cell.getyPos() < getyPos() + getHeight() - cell.getHeight()) {
+
+            cell.shiftText(horizontalScrollBar.getPositionIndex());
+
+            float yTemp = (!horizontalScrollBar.isVisible()) ? getyPos() + getHeight() - cell.getHeight() : getyPos() + getHeight() - cell.getHeight() - horizontalScrollBar.getHeight();
+            if (cell.getyPos() < yTemp) {
                 cell.draw();
             } else {
                 verticalScrollBar.setSteps(cells.size() - i);
@@ -116,6 +151,6 @@ public class ListView<G> extends ListComponent<G> {
         if (horizontalScrollBar.isVisible()) horizontalScrollBar.handleMouseInputEvent(mouseInputEvent);
         if (verticalScrollBar.isVisible()) verticalScrollBar.handleMouseInputEvent(mouseInputEvent);
 
-        super.handleMouseInputEvent(mouseInputEvent);
+//        super.handleMouseInputEvent(mouseInputEvent);
     }
 }
