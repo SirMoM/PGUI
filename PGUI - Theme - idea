@@ -1,0 +1,26 @@
+Themes - a look
+
+
+What components do make a theme.
+
+* Background color
+* Outline color
+* Text Color
+* Text Highlight Color
+* Outline Highlight color
+* Background Highlight color
+
+Load from Java-Properties
+
+Theme Object
+all color fields
+
+SetAllBaseColors function
+Theme for all
+for every ==> manual set
+Themes in the GUIMANAGER
+
+how to register all Colors
+  * every draw ==> not possible to have custom stiles ?
+  * once (settings) and ony existing Components will be affected
+  * on registering a new Object / view ?
